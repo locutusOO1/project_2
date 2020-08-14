@@ -9,7 +9,7 @@ module.exports = function(app) {
   app.post("/api/login", passport.authenticate("local"), (req, res) => {
     // Sending back a password, even a hashed password, isn't a good idea
     res.json({
-      email: req.user.email,
+      userName: req.user.userName,
       id: req.user.id
     });
   });
@@ -18,8 +18,9 @@ module.exports = function(app) {
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
   app.post("/api/signup", (req, res) => {
+    console.log(req.body)
     db.User.create({
-      email: req.body.email,
+      userName: req.body.userName,
       password: req.body.password
     })
       .then(() => {
