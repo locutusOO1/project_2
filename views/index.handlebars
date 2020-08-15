@@ -1,29 +1,43 @@
-{{!-- HTML For login.html --}}
+<div class="container">
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-      </div>
-    </div>
-  </nav>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <h2>Login Form</h2>
-        <form class="login">
-          <div class="form-group">
-            <label for="userName-input">User Name</label>
-            <input type="text" class="form-control" id="userName-input" placeholder="UserName">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="password-input" placeholder="Password">
-          </div>
-          <button type="submit" class="btn btn-default">Login</button>
-        </form>
-        <br />
-        <p>Or sign up <a href="/signup">here</a></p>
-      </div>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      High Scores
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      {{#each highScores}}
+      <p class="dropdown-item">{{name}} - {{score}}</p>
+      {{/each}}
     </div>
   </div>
-  <script src="/js/login.js"></script>
+
+  <nav class="navbar navbar-default"></nav>
+  <div class="navbar-header text-flicker-in-glow text-center">Trivia Night
+  </div>
+  <p id="def" class="bounce-in-top text-center">Definition of trivia
+    : a quizzing game involving obscure facts. Are you ready?</p>
+  </nav>
+
+  <div class="row">
+    <div class="col-md-3">
+      <form class="login">
+        <div class="form-group">
+          <label for="userName-input">Username</label>
+          <input type="text" class="form-control" id="userName-input" placeholder="UserName">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" id="password-input" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-default">Login</button>
+      </form>
+      <br />
+      <p class="signUp">Or sign up<a href="/signup"> HERE </a></p>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script src="/js/login.js"></script>
