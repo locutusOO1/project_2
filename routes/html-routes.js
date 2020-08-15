@@ -10,7 +10,10 @@ module.exports = function(app) {
     if (req.user) {
       res.redirect("/game");
     }
-    res.render('index');
+    
+    //SELECT name, score FROM users WHERE LIMIT 10
+    //Make request to DB for scores
+    res.render('index', {highScores: [{name: 'bob', score: 45}, {name: 'chris', score: 5},{name: 'mike', score: 76}]});
   });
 
   app.get("/signup", (req, res) => {
