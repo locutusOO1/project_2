@@ -54,15 +54,16 @@ module.exports = function(app) {
   });
   
   // Route for deleting user
-  app.get("/api/delete/:id", (req, res) => {
+  app.delete("/api/user_data/:id", (req, res) => {
     const id = req.params.id;
     db.User.destroy({
       where: {
         id
       }
     }).then(function(){
+      //req.logout();
       req.logout();
-      res.redirect("/");
+      res.end();
     });
   });
 

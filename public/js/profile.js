@@ -1,3 +1,5 @@
+
+
 $(document).ready(function(){
     $("#start-btn").on("click", function (req, res){
         console.log("clicked")
@@ -11,7 +13,13 @@ $(document).ready(function(){
 
     $("#delete-btn").on("click", function (req, res){
         console.log("clicked")
-        ///figure out how delete 
+        const id = $(this).attr("data-id")
+        $.ajax("/api/user_data/" + id, {
+            type: "DELETE"
+        }).then(function(){
+            console.log("Hello")
+         window.location.replace("/")
+        })
     })
 });
 

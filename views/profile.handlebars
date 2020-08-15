@@ -5,11 +5,11 @@
  <br>
  
 
- <h1 style= "color:aliceblue"> Hello, {{ userName }} </h1>
+ <h1 style= "color:aliceblue"> Hello, {{ user.userName }} </h1>
  <p>Welcome to the Trivia Night game. To start the game, please press Start button</p>
  <button id="start-btn" type ="button" class="btn btn-primary">Start</button>
  <button id="logout-btn" type ="button" class="btn btn-secondary">Log Out</button>
- <button id="delete-btn" type ="button" class="btn btn-danger"> Delete</button>
+ <button id="delete-btn" type ="button" class="btn btn-danger" data-id ="{{user.id}}"> Delete</button>
 
 </div>
 
