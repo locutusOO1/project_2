@@ -1,18 +1,56 @@
-//Function for game functionality
-    //AJAX calls
-
-    //For OpenTDB
-        // const apiKey = "3ea8b303cd602013a12b5951a3aed1b054818b323040af7d2231ede668458f80";
-        // var queryURL = "https://opentdb.com/api.php?amount=10";
-        // URL to request new API Key because they are deleted after 6 hours of inactivity. Just run the link in the browser
-            //https://opentdb.com/api_token.php?command=request 
-
-    function callOpenTDb(q, id) {
+$( document ).ready(function() {
+    let rightAnswer = 0;
+    let wrongAnswer = 0;
+    $("button").on("click", function() {
+        let queryURL = "https://opentdb.com/api.php?amount=10";
+        let results = [];
+        let quesDiv = $("#questions");
         $.ajax({
-            url: q,
-            method: "GET",
-            dataType: "jsonp"
+            url: queryURL,
+            method: "GET"
         }).then(function(response) {
+            console.log(response);
+            let results = response.results;
+            for (let i = 0; i < results.length; i++) {
+                let options = results[i].incorrect_answers;
+                options.push(results[i].correct_answer);
+                options.sort();
+            const buttons = options.map((option) => {
+                if (option === results[i].correct_answer) {
+                    return `<button class="ansBtns right button is-link">${option}</button>`
+                } else {
+                    return `<button class="ansBtns wrong button is-link">${option}</button>`
+                }                
+                }).join("");
+                let newQuestions = $(`
+                <p>Category: ${results[i].category}</p>
+                <h3>Question: ${results[i].question}</h3>
+                <div id="button-group" class="field is-grouped>
+                    <p class="control">
+                        ${buttons}
+                    </p>
+                </div>
+                `);
+                quesDiv.append(newQuestions);
+            };   
+                
+            $(".right").on("click", function() {
+                console.log("correct");
+                rightAnswer++;
+                console.log(rightAnswer)
 
-        })
-    } 
+            });
+            
+            $(".wrong").on("click", function() {
+                console.log("incorrect");
+                wrongAnswer++;
+                console.log(wrongAnswer)
+
+            });
+               
+        });
+        
+    });
+    
+
+});

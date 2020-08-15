@@ -2,3 +2,19 @@ form.signup,
 form.login {
   margin-top: 50px;
 }
+
+
+
+.goGreen {
+  background-color: limegreen;
+}
+#goGreen {
+  background-color: limegreen;
+}
+
+.goRed {
+  background-color: red;
+}
+#goRed {
+  background-color: red;
+}

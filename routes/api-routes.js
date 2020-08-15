@@ -9,7 +9,7 @@ module.exports = function(app) {
   app.post("/api/login", passport.authenticate("local"), (req, res) => {
     // Sending back a password, even a hashed password, isn't a good idea
     res.json({
-      email: req.user.email,
+      userName: req.user.userName,
       id: req.user.id
     });
   });
@@ -18,8 +18,9 @@ module.exports = function(app) {
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
   app.post("/api/signup", (req, res) => {
+    console.log(req.body)
     db.User.create({
-      email: req.body.email,
+      userName: req.body.userName,
       password: req.body.password
     })
       .then(() => {
@@ -38,6 +39,7 @@ module.exports = function(app) {
 
   // Route for getting some data about our user to be used client side
   app.get("/api/user_data", (req, res) => {
+    console.log(req);
     if (!req.user) {
       // The user is not logged in, send back an empty object
       res.json({});
@@ -45,9 +47,23 @@ module.exports = function(app) {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
       res.json({
-        email: req.user.email,
+        userName: req.user.userName,
         id: req.user.id
       });
     }
   });
+  
+  // Route for deleting user
+  app.get("/api/delete/:id", (req, res) => {
+    const id = req.params.id;
+    db.User.destroy({
+      where: {
+        id
+      }
+    }).then(function(){
+      req.logout();
+      res.redirect("/");
+    });
+  });
+
 };
