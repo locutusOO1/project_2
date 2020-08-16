@@ -1,5 +1,5 @@
 
-
+//adding functionality to the buttons in the profile page 
 $(document).ready(function(){
     $("#start-btn").on("click", function (req, res){
         console.log("clicked")
