@@ -39,7 +39,6 @@ module.exports = function(app) {
 
   // Route for getting some data about our user to be used client side
   app.get("/api/user_data", (req, res) => {
-    console.log(req);
     if (!req.user) {
       // The user is not logged in, send back an empty object
       res.json({});
@@ -88,7 +87,6 @@ module.exports = function(app) {
         .then(() => {
         })
         .catch(err => {
-          console.log(err.name);
           // if category already exists for user, then update it instead of creating it
           if (err.name === "SequelizeUniqueConstraintError") {
             db.Category.update({
@@ -109,6 +107,7 @@ module.exports = function(app) {
     await res.redirect("/profile");
   });
 
+  //route to get array of top 10 high scores
   app.get("/api/high_scores",async (req,res) => {
     const [results, metadata] = await db.sequelize.query(`
     select 
@@ -119,18 +118,50 @@ module.exports = function(app) {
     from users u 
     join categories c on (u.id = c.userid)
     group by u.userName
-    order by overallPercentCorrect desc`);
-    console.log(results);
-    // console.log(metadata);
+    order by overallPercentCorrect desc
+    limit 10`);
     res.json(results);
   });
 
-  app.get("/api/user_categories/:id",(req,res) => {
-    const UserId = req.params.id;
-    db.Category.findAll({where: {UserId}}).then(function(data) {
-      res.json(data);
-    });
+  //route to get array of specific score categories for a user
+  app.get("/api/user_categories/:id",async (req,res) => {
+    const UserId = parseInt(req.params.id);
+    if (!isNaN(UserId)) {
+      const [results, metadata] = await db.sequelize.query(`
+      select 
+        u.username userName, 
+        c.totalcorrect totalCorrect, 
+        c.totalAnswered totalAnswered, 
+        (c.totalcorrect/c.totalanswered)*100 categoryPercentCorrect
+      from users u 
+      join categories c on (u.id = c.userid)
+      where u.id = ${UserId}
+      order by categoryPercentCorrect desc
+      limit 10`);
+      res.json(results);
+    } else {
+      res.json([]);
+    }
   });
 
+  //route to get overall score for a user
+  app.get("/api/user_overall/:id",async (req,res) => {
+    const UserId = parseInt(req.params.id);
+    if (!isNaN(UserId)) {
+      const [results, metadata] = await db.sequelize.query(`
+      select 
+        u.username userName, 
+        sum(c.totalcorrect) totalCorrect, 
+        sum(c.totalAnswered) totalAnswered, 
+        (sum(c.totalcorrect)/sum(c.totalanswered))*100 overallPercentCorrect
+      from users u 
+      join categories c on (u.id = c.userid)
+      where u.id = ${UserId}
+      group by u.userName`);
+      res.json(results);
+    } else {
+      res.json([]);
+    }
+  });
 
 };
