@@ -1,6 +1,7 @@
 // Requiring our models and passport as we've configured it
 const db = require("../models");
 const passport = require("../config/passport");
+const Sequelize = require('sequelize');
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -18,7 +19,6 @@ module.exports = function(app) {
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
   app.post("/api/signup", (req, res) => {
-    console.log(req.body)
     db.User.create({
       userName: req.body.userName,
       password: req.body.password
@@ -39,7 +39,6 @@ module.exports = function(app) {
 
   // Route for getting some data about our user to be used client side
   app.get("/api/user_data", (req, res) => {
-    console.log(req);
     if (!req.user) {
       // The user is not logged in, send back an empty object
       res.json({});
@@ -54,7 +53,8 @@ module.exports = function(app) {
   });
   
   // Route for deleting user
-  app.get("/api/delete/:id", (req, res) => {
+  // app.get("/api/delete/:id", (req, res) => {
+  app.delete("/api/delete/:id", (req, res) => {
     const id = req.params.id;
     db.User.destroy({
       where: {
@@ -66,5 +66,102 @@ module.exports = function(app) {
     });
   });
 
+  // route for handling insertion/update of new categories and their scores
+  app.post("/api/update", async (req, res) => {
+    let userId = req.body.userId;
+    let scores = req.body.scores;
+  // app.get("/api/update", async (req, res) => {
+  //   let userId = 4;
+  //   let scores = [{cat: "Movies", ques: 4, right: 2},
+  //                 {cat: "Music", ques: 5, right: 3},
+  //                 {cat: "TV", ques: 7, right: 5}];
+    //
+    for (let i = 0; i < scores.length; i++) {
+      // first try to insert category
+      db.Category.create({
+        UserId: userId,
+        categoryName: scores[i].cat,
+        totalCorrect: scores[i].right,
+        totalAnswered: scores[i].ques,
+      })
+        .then(() => {
+        })
+        .catch(err => {
+          // if category already exists for user, then update it instead of creating it
+          if (err.name === "SequelizeUniqueConstraintError") {
+            db.Category.update({
+              totalCorrect: Sequelize.literal(`totalCorrect + ${scores[i].right}`),
+              totalAnswered: Sequelize.literal(`totalAnswered + ${scores[i].ques}`)
+            }, {
+              where: {
+                UserId: userId,
+                categoryName: scores[i].cat
+              }
+            }).then(() => {
+            }).catch(err2 => {
+              console.log(err2);
+            });
+          }
+        });
+    }
+    await res.redirect("/profile");
+  });
+
+  //route to get array of top 10 high scores
+  app.get("/api/high_scores",async (req,res) => {
+    const [results, metadata] = await db.sequelize.query(`
+    select 
+      u.username userName, 
+      sum(c.totalcorrect) totalCorrect, 
+      sum(c.totalAnswered) totalAnswered, 
+      (sum(c.totalcorrect)/sum(c.totalanswered))*100 overallPercentCorrect
+    from users u 
+    join categories c on (u.id = c.userid)
+    group by u.userName
+    order by overallPercentCorrect desc
+    limit 10`);
+    res.json(results);
+  });
+
+  //route to get array of specific score categories for a user
+  app.get("/api/user_categories/:id",async (req,res) => {
+    const UserId = parseInt(req.params.id);
+    if (!isNaN(UserId)) {
+      const [results, metadata] = await db.sequelize.query(`
+      select 
+        u.username userName, 
+        c.totalcorrect totalCorrect, 
+        c.totalAnswered totalAnswered, 
+        (c.totalcorrect/c.totalanswered)*100 categoryPercentCorrect
+      from users u 
+      join categories c on (u.id = c.userid)
+      where u.id = ${UserId}
+      order by categoryPercentCorrect desc
+      limit 10`);
+      res.json(results);
+    } else {
+      res.json([]);
+    }
+  });
+
+  //route to get overall score for a user
+  app.get("/api/user_overall/:id",async (req,res) => {
+    const UserId = parseInt(req.params.id);
+    if (!isNaN(UserId)) {
+      const [results, metadata] = await db.sequelize.query(`
+      select 
+        u.username userName, 
+        sum(c.totalcorrect) totalCorrect, 
+        sum(c.totalAnswered) totalAnswered, 
+        (sum(c.totalcorrect)/sum(c.totalanswered))*100 overallPercentCorrect
+      from users u 
+      join categories c on (u.id = c.userid)
+      where u.id = ${UserId}
+      group by u.userName`);
+      res.json(results);
+    } else {
+      res.json([]);
+    }
+  });
 
 };
