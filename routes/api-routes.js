@@ -67,14 +67,14 @@ module.exports = function(app) {
   });
 
   // route for handling insertion/update of new categories and their scores
-  // app.post("/api/update", async (req, res) => {
-  //   let userId = req.body.userId;
-  //   let scores = req.body.scores;
-  app.get("/api/update", async (req, res) => {
-    let userId = 4;
-    let scores = [{cat: "Movies", ques: 4, right: 2},
-                  {cat: "Music", ques: 5, right: 3},
-                  {cat: "TV", ques: 7, right: 5}];
+  app.post("/api/update", async (req, res) => {
+    let userId = req.body.userId;
+    let scores = req.body.scores;
+  // app.get("/api/update", async (req, res) => {
+  //   let userId = 4;
+  //   let scores = [{cat: "Movies", ques: 4, right: 2},
+  //                 {cat: "Music", ques: 5, right: 3},
+  //                 {cat: "TV", ques: 7, right: 5}];
     //
     for (let i = 0; i < scores.length; i++) {
       // first try to insert category
