@@ -132,6 +132,7 @@ module.exports = function(app) {
         u.username userName, 
         c.totalcorrect totalCorrect, 
         c.totalAnswered totalAnswered, 
+        c.categoryName categoryName,
         (c.totalcorrect/c.totalanswered)*100 categoryPercentCorrect
       from users u 
       join categories c on (u.id = c.userid)
