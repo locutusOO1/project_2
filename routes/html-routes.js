@@ -1,19 +1,32 @@
 // Requiring path to so we can use relative routes to our HTML files
 const path = require("path");
+const db = require("../models");
+const Sequelize = require('sequelize');
 
 // Requiring our custom middleware for checking if a user is logged in
 const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
-  app.get("/", (req, res) => {
+  app.get("/", async (req, res) => {
     // If the user already has an account send them to the members page
     if (req.user) {
       res.redirect("/game");
     }
     
-    //SELECT name, score FROM users WHERE LIMIT 10
-    //Make request to DB for scores
-    res.render('index', {highScores: [{name: 'bob', score: 45}, {name: 'chris', score: 5},{name: 'mike', score: 76}]});
+    const [results, metadata] = await db.sequelize.query(`
+    select 
+		@rownum := @rownum + 1 as rownum,
+      u.username userName, 
+      sum(c.totalcorrect) totalCorrect, 
+      sum(c.totalAnswered) totalAnswered, 
+      (sum(c.totalcorrect)/sum(c.totalanswered))*100 overallPercentCorrect
+    from users u 
+    join categories c on (u.id = c.userid)
+    join (select @rownum := 0) t
+    group by u.userName
+    order by overallPercentCorrect desc 
+    limit 10`);
+    res.render('index', {highScores: results});
   });
 
   app.get("/signup", (req, res) => {
