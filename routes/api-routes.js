@@ -140,8 +140,7 @@ module.exports = function(app) {
       from users u 
       join categories c on (u.id = c.userid)
       where u.id = ${UserId}
-      order by categoryPercentCorrect desc
-      limit 10`);
+      order by categoryPercentCorrect desc`);
       res.json(results);
     } else {
       res.json([]);
