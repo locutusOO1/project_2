@@ -124,7 +124,7 @@ form.login {
 body { 
   background: url(../img/trivia2.jpeg);
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-size: cover;
 }
 
  .text-flicker-in-glow {
