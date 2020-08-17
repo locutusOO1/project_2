@@ -17,6 +17,7 @@
             let queryURL ="https://opentdb.com/api.php?amount=10";
             let results =[];
             let quesDiv = $("#myQuestions");
+            quesDiv.empty();
             $.ajax({
                 url: queryURL,
                 method: "GET"
