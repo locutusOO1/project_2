@@ -9,7 +9,9 @@
 
 
      // creating div with questions and answers
-
+    $("#back-btn").on("click", function(){
+        window.location.replace("/profile");
+    })
     $(document).ready(function(){
         $("#quest-btn").on("click", function(){
             let queryURL ="https://opentdb.com/api.php?amount=10";
@@ -26,19 +28,19 @@
                    options.push(results[i].correct_answer);
                    options.sort();
                    let newQuestions = $(`
-                   <h3>Question: ${results[i].question}</h3>
+                   <h3 class="roll">Question: ${results[i].question}</h3>
                    <p>Choose answer: 
                    <ul>
-                   <button class="btn btn-outline-warning btn-block">${results[i].incorrect_answers[0]} </button>
-                   <button class="btn btn-outline-warning btn-block">${results[i].incorrect_answers[1]} </button>
-                   <button class="btn btn-outline-warning btn-block">${results[i].incorrect_answers[2]} </button>
-                   <button class="btn btn-outline-warning btn-block">${results[i].incorrect_answers[3]} </button>
+                   <button class="btn btn-primary btn-rounded roll">${results[i].incorrect_answers[0]} </button>
+                   <button class="btn btn-primary btn-rounded roll">${results[i].incorrect_answers[1]} </button>
+                   <button class="btn btn-primary btn-rounded roll">${results[i].incorrect_answers[2]} </button>
+                   <button class="btn btn-primary btn-rounded roll">${results[i].incorrect_answers[3]} </button>
                    </ul>
                    </p>
                    `);
                 quesDiv.append(newQuestions)
                 }
-                
+               
                 console.log(results)
             })
 
@@ -63,8 +65,4 @@
         //     }).then(function(response) {
 
         //     })
-<<<<<<< HEAD
         // } 
-=======
-        // } 
->>>>>>> 70273857339a5df4dbeaa593ba417b6341603440

@@ -3,11 +3,15 @@
     <br>
     <br>
     <br>
-<h1 style="color:aliceblue"> Hello, {{{ userName }}} </h1>>
-<p>Welcome to Trivia Night Game. To start the game , please press Start button
-</p>
-<button id="start-btn" type="button" class="btn btn-primary">Start</button>
+<h1 style="color:aliceblue;font-size:75px;"> Hello, {{{ user.userName }}} </h1>
+
+<p class="slit-in-vertical"style="color:aliceblue;font-size:75px;">Welcome to Trivia Night !</p>
+
+<button id="start-btn" type="button" class="btn btn-primary btn-lg heartbeat">Start The Game</button>
+<br>
+<br>
+<br>
 <button id="logout-btn" type="button" class="btn btn-secondary">Logout</button>
-<button id="delete-btn" type="button" class="btn btn-danger">Delete Profile</button>
+<button id="delete-btn" type="button" class="btn btn-danger" data-id="{{user.id}}">Delete Profile</button>
 </div>
 <script src="/js/profile.js"></script>
