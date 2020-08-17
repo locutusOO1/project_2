@@ -62,6 +62,7 @@ module.exports = function(app) {
       }
     }).then(function(){
       req.logout();
+
       res.end();
     });
   });
@@ -139,7 +140,8 @@ module.exports = function(app) {
       from users u 
       join categories c on (u.id = c.userid)
       where u.id = ${UserId}
-      order by categoryPercentCorrect desc`);
+      order by categoryPercentCorrect desc
+      limit 10`);
       res.json(results);
     } else {
       res.json([]);
