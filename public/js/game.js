@@ -29,16 +29,12 @@
                    options.sort();
                    let newQuestions = $(`
                    <h3 class="roll">Question: ${results[i].question}</h3>
-                   <p>Choose answer: 
-                   <ul>
-                   <button class="btn btn-primary btn-rounded roll">${results[i].incorrect_answers[0]} </button>
-                   <button class="btn btn-primary btn-rounded roll">${results[i].incorrect_answers[1]} </button>
-                   <button class="btn btn-primary btn-rounded roll">${results[i].incorrect_answers[2]} </button>
-                   <button class="btn btn-primary btn-rounded roll">${results[i].incorrect_answers[3]} </button>
-                   </ul>
-                   </p>
-                   `);
-                quesDiv.append(newQuestions)
+                   <p>Choose answer:</p>`);
+                   quesDiv.append(newQuestions)
+                for (let j = 0; j < options.length; j++) {
+                    let newAnswers = $(`<p><button class="btn btn-primary btn-rounded roll">${options[j]} </button></p>`)
+                    quesDiv.append(newAnswers)
+                }
                 }
                
                 console.log(results)
