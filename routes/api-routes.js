@@ -62,7 +62,8 @@ module.exports = function(app) {
       }
     }).then(function(){
       req.logout();
-      res.end()
+
+      res.end();
     });
   });
 
