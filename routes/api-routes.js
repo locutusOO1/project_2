@@ -19,7 +19,6 @@ module.exports = function(app) {
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
   app.post("/api/signup", (req, res) => {
-    console.log(req.body)
     db.User.create({
       userName: req.body.userName,
       password: req.body.password
@@ -40,7 +39,6 @@ module.exports = function(app) {
 
   // Route for getting some data about our user to be used client side
   app.get("/api/user_data", (req, res) => {
-    console.log(req);
     if (!req.user) {
       // The user is not logged in, send back an empty object
       res.json({});
@@ -55,8 +53,8 @@ module.exports = function(app) {
   });
   
   // Route for deleting user
-  // app.get("/api/delete/:id", (req, res) => {
-  app.delete("/api/delete/:id", (req, res) => {
+  // app.get("/api/user_data/:id", (req, res) => {
+  app.delete("/api/user_data/:id", (req, res) => {
     const id = req.params.id;
     db.User.destroy({
       where: {
@@ -64,7 +62,7 @@ module.exports = function(app) {
       }
     }).then(function(){
       req.logout();
-      res.redirect("/");
+      res.end();
     });
   });
 
@@ -134,6 +132,7 @@ module.exports = function(app) {
         u.username userName, 
         c.totalcorrect totalCorrect, 
         c.totalAnswered totalAnswered, 
+        c.categoryName categoryName,
         (c.totalcorrect/c.totalanswered)*100 categoryPercentCorrect
       from users u 
       join categories c on (u.id = c.userid)

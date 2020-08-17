@@ -2,9 +2,11 @@ $( document ).ready(() => {
     //Gloal variables set to 0 for score. Incrementers in code below with .right and .wrong click functions
     let rightAnswer = 0;
     let wrongAnswer = 0;
+    // let startBtn = $("#startBtn");
+    // let nextBtn = $("#nexBtn");
     //Button with ID to start API call to display 10 random questions
-    $("#startGame").on("click", function() {
-        let queryURL = "https://opentdb.com/api.php?amount=10";
+    $(".showQuestions").on("click", function() {
+        let queryURL = "https://opentdb.com/api.php?amount=1";
         let results = [];
         let quesDiv = $("#questions");
         $.ajax({
@@ -19,9 +21,9 @@ $( document ).ready(() => {
                 options.sort();
             const buttons = options.map((option) => {
                 if (option === results[i].correct_answer) {
-                    return `<button class="ansBtns right button is-link">${option}</button>`
+                    return `<button type="submit" class="ansBtns right button is-link">${option}</button>`
                 } else {
-                    return `<button class="ansBtns wrong button is-link">${option}</button>`
+                    return `<button type="submit" class="ansBtns wrong button is-link">${option}</button>`
                 }       
                 //HTML generated dynamically         
                 }).join("");
@@ -40,17 +42,29 @@ $( document ).ready(() => {
                 console.log("correct");
                 rightAnswer++;
                 console.log(rightAnswer)
-
+                console.log(`${results[0].category}`)
             });
             $(".wrong").on("click", function() {
                 console.log("incorrect");
                 wrongAnswer++;
                 console.log(wrongAnswer)
-
-            });
-               
-        });
-        
+                console.log(`${results[0].category}`)
+            });              
+        });         
     });   
+    //Function to hide button that generates questions and display the Next button to generate the following questions. Tried declaring variables, for some reason this is the only way I would get it to work. 
+    document.getElementById("startBtn").onclick = function() { 
+        document.getElementById("startBtn").style.display = "none";
+        document.getElementById("nextBtn").classList.remove("hide");  
+    };   
 
+    //Click function to clear questions div
+    document.getElementById("nextBtn").onclick = function() {
+        clearContent()
+    }
+
+    //Function to clear questions div and show next question
+    function clearContent() {
+        document.getElementById("questions").empty();
+    }
 });
