@@ -38,6 +38,7 @@
                    `);
                 quesDiv.append(newQuestions)
                 }
+                
                 console.log(results)
             })
 
@@ -53,7 +54,7 @@
 
 
 
-    
+
         // function callOpenTDb(q, id) {
         //     $.ajax({
         //         url: q,
