@@ -11,8 +11,4 @@ insert into categories (userid,categoryname,totalanswered,totalcorrect,createdat
 insert into categories (userid,categoryname,totalanswered,totalcorrect,createdat,updatedat) values (1,"Entertainment: Music",5,1,now(),now());
 insert into categories (userid,categoryname,totalanswered,totalcorrect,createdat,updatedat) values (1,"General Knowledge",7,3,now(),now());
 insert into categories (userid,categoryname,totalanswered,totalcorrect,createdat,updatedat) values (2,"Entertainment: Music",5,4,now(),now());
-<<<<<<< HEAD
 insert into categories (userid,categoryname,totalanswered,totalcorrect,createdat,updatedat) values (2,"General Knowledge",6,5,now(),now());
-=======
-insert into categories (userid,categoryname,totalanswered,totalcorrect,createdat,updatedat) values (2,"General Knowledge",6,5,now(),now());
->>>>>>> 70273857339a5df4dbeaa593ba417b6341603440
