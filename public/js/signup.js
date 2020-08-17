@@ -1,9 +1,16 @@
 $(document).ready(() => {
   // Getting references to our form and input
+<<<<<<< HEAD
   const signUpForm = $("form.signup");
   const userNameInput = $("input#userName-input");
   const passwordInput = $("input#password-input");
 
+=======
+  const signUpForm = $("form.signUp");
+  const userNameInput = $("input#userName-input");
+  const passwordInput = $("input#password-input");
+  console.log(signUpForm,userNameInput,passwordInput)
+>>>>>>> 88853070dcaeb08452ca208c5049bef11d52f824
   // When the signup button is clicked, we validate the userName and password are not blank
   signUpForm.on("submit", event => {
     event.preventDefault();
@@ -24,6 +31,10 @@ $(document).ready(() => {
   // Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors
   function signUpUser(userName, password) {
+<<<<<<< HEAD
+=======
+    console.log(userName, password)
+>>>>>>> 88853070dcaeb08452ca208c5049bef11d52f824
     $.post("/api/signup", {
       userName: userName,
       password: password
