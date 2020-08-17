@@ -1,7 +1,9 @@
-$( document ).ready(function() {
+$( document ).ready(() => {
+    //Gloal variables set to 0 for score. Incrementers in code below with .right and .wrong click functions
     let rightAnswer = 0;
     let wrongAnswer = 0;
-    $("button").on("click", function() {
+    //Button with ID to start API call to display 10 random questions
+    $("#startGame").on("click", function() {
         let queryURL = "https://opentdb.com/api.php?amount=10";
         let results = [];
         let quesDiv = $("#questions");
@@ -20,7 +22,8 @@ $( document ).ready(function() {
                     return `<button class="ansBtns right button is-link">${option}</button>`
                 } else {
                     return `<button class="ansBtns wrong button is-link">${option}</button>`
-                }                
+                }       
+                //HTML generated dynamically         
                 }).join("");
                 let newQuestions = $(`
                 <p>Category: ${results[i].category}</p>
@@ -33,14 +36,12 @@ $( document ).ready(function() {
                 `);
                 quesDiv.append(newQuestions);
             };   
-                
             $(".right").on("click", function() {
                 console.log("correct");
                 rightAnswer++;
                 console.log(rightAnswer)
 
             });
-            
             $(".wrong").on("click", function() {
                 console.log("incorrect");
                 wrongAnswer++;
@@ -50,7 +51,6 @@ $( document ).ready(function() {
                
         });
         
-    });
-    
+    });   
 
 });

@@ -55,12 +55,8 @@ module.exports = function(app) {
   });
   
   // Route for deleting user
-<<<<<<< HEAD
-  app.get("/api/delete/:id", (req, res) => {
-=======
   // app.get("/api/delete/:id", (req, res) => {
   app.delete("/api/delete/:id", (req, res) => {
->>>>>>> 88853070dcaeb08452ca208c5049bef11d52f824
     const id = req.params.id;
     db.User.destroy({
       where: {
@@ -72,9 +68,6 @@ module.exports = function(app) {
     });
   });
 
-<<<<<<< HEAD
-};
-=======
   // route for handling insertion/update of new categories and their scores
   app.post("/api/update", async (req, res) => {
     let userId = req.body.userId;
@@ -174,4 +167,3 @@ module.exports = function(app) {
   });
 
 };
->>>>>>> 88853070dcaeb08452ca208c5049bef11d52f824

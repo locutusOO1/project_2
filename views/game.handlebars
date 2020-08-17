@@ -1,7 +1,19 @@
-<<<<<<< HEAD
-<h2>Game On</h12>
+<div class="container">
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      High Scores
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      {{#each highScores}}
+      <p class="dropdown-item">{{name}} - {{score}}</p>
+      {{/each}}
+    </div>
+  </div>
 
-<script src="/js/game"></script>
-=======
 <h1>Game On</h1>
->>>>>>> 88853070dcaeb08452ca208c5049bef11d52f824
+<button id="startGame">Bring it on!</button>
+<div id="questions"></div>
+
+</div>
+<script src="/js/game.js"></script>
