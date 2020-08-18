@@ -9,7 +9,7 @@
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
       <table class="dropdown-item">
         <tr>
-          <th>Rank - </th>
+          {{!-- <th>Rank - </th> --}}
           <th>User Name - </th>
           <th>Correct - </th>
           <th>Answered - </th>
@@ -17,7 +17,7 @@
         </tr>
       {{#each highScores}}
       <tr>
-        <td>{{rownum}}</td>
+        {{!-- <td>{{@index}}</td> --}}
         <td>{{userName}}</td>
         <td>{{totalCorrect}}</td>
         <td>{{totalAnswered}}</td>
