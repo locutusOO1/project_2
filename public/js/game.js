@@ -13,10 +13,13 @@
         window.location.replace("/profile");
     })
     $(document).ready(function(){
+        let answers = [];
         $("#quest-btn").on("click", function(){
             let queryURL ="https://opentdb.com/api.php?amount=10";
-            let results =[];
+            // let results =[];
             let quesDiv = $("#myQuestions");
+            answers = [];
+            quesDiv.empty();
             $.ajax({
                 url: queryURL,
                 method: "GET"
@@ -28,21 +31,65 @@
                    options.push(results[i].correct_answer);
                    options.sort();
                    let newQuestions = $(`
-                   <h3 class="roll">Question: ${results[i].question}</h3>
+                   <h3 class="roll">Question ${i+1}: ${results[i].question}</h3>
                    <p>Choose answer:</p>`);
                    quesDiv.append(newQuestions)
                 for (let j = 0; j < options.length; j++) {
+<<<<<<< HEAD
                     let newAnswers = $(`<p><button class=" answerBtn btn btn-primary btn-rounded roll">${options[j]} </button></p>`)
                     quesDiv.append(newAnswers)
+=======
+                    if (options[j] === results[i].correct_answer) { 
+                        let newAnswers = $(`<p><button class="answer ques${i} btn btn-primary btn-rounded roll" data-cat="${results[i].category}" data-right="right">${options[j]}</button></p>`);
+                        quesDiv.append(newAnswers);
+                    } else {
+                        let newAnswers = $(`<p><button class="answer ques${i} btn btn-primary btn-rounded roll" data-cat="${results[i].category}" data-right="wrong">${options[j]}</button></p>`)
+                        quesDiv.append(newAnswers);
+                    }
+>>>>>>> 3efdbfb07b4f1fcabcfda9ca6b2af753724755a8
                 }
+                $(".ques"+i).on("click",function(event){
+                    // console.log(event.target);
+                    // console.log($(this));
+                    let found = false;
+                    let classes = $(this)[0].classList;
+                    for (let m = 0; m < answers.length; m++) {
+                        if (answers[m][0] === classes[1]) {
+                            found = true;
+                        }
+                    }
+                    if (!found) {
+                        if ($(this).attr("data-right") === "right") {
+                            $(this).addClass("btn-success");
+                        } else {
+                            $(this).addClass("btn-danger");
+                        }
+                        console.log($(this).attr("data-right"));
+                        console.log($(this).attr("data-cat"));
+                        console.log($(this)[0].classList);
+                        let classes = $(this)[0].classList;
+                        console.log(classes[1]);
+                        answers.push([classes[1],$(this).attr("data-cat"),$(this).attr("data-right")]);
+                        console.log(answers);
+                    }
+
+                    // $(classes[1]).prop("disabled",true);
+                })
                 }
                
                 console.log(results)
             }) 
             
         })
+<<<<<<< HEAD
     });
    
+=======
+
+    });
+
+    // creating logic to the correct answers and updating profile of user 
+>>>>>>> 3efdbfb07b4f1fcabcfda9ca6b2af753724755a8
 
     // // creating logic to the correct answers and updating profile of user
 
