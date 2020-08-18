@@ -16,7 +16,10 @@ function countdown() {
         if (timeLeft === 0) {
             clearInterval(timeInterval);
             timer.text("Your time is up!");
-            window.location.replace("/profile");
+            setInterval(function () {
+                window.location.replace("/profile");
+            },1000)
+           
         }
     }, 1000)
 }
