@@ -39,8 +39,14 @@ module.exports = function(app) {
 
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
+
   app.get("/profile", isAuthenticated, (req, res) => {
-    res.render('profile', {user:req.user});
+
+    const scores=[{cat: "Movies", ques: 4, right: 2},
+                    {cat: "Music", ques: 5, right: 3},
+                    {cat: "TV", ques: 7, right: 5}];
+                    
+    res.render('profile', {user:req.user,scores:scores});
   });
   app.get("/game", isAuthenticated, (req, res) => {
     res.render('game');
