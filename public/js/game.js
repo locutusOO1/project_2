@@ -32,20 +32,21 @@
                    <p>Choose answer:</p>`);
                    quesDiv.append(newQuestions)
                 for (let j = 0; j < options.length; j++) {
-                    let newAnswers = $(`<p><button class="btn btn-primary btn-rounded roll">${options[j]} </button></p>`)
+                    let newAnswers = $(`<p><button class=" answerBtn btn btn-primary btn-rounded roll">${options[j]} </button></p>`)
                     quesDiv.append(newAnswers)
                 }
                 }
                
                 console.log(results)
-            })
-
+            }) 
+            
         })
-    })
+    });
+   
 
-    // creating logic to the correct answers and updating profile of user 
+    // // creating logic to the correct answers and updating profile of user
 
-
+     
 
 
 
@@ -61,10 +62,6 @@
         //     }).then(function(response) {
 
         //     })
-<<<<<<< HEAD
 
         // } 
 
-=======
-        // } 
->>>>>>> b692f283f1337d8578bf0db885f4e824148719ed
