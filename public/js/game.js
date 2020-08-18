@@ -9,7 +9,11 @@
 
 
      // creating div with questions and answers
+<<<<<<< HEAD
      $("#back-btn").on("click", function(){
+=======
+    $("#back-btn").on("click", function(){
+>>>>>>> 3efdbfb07b4f1fcabcfda9ca6b2af753724755a8
         window.location.replace("/profile");
     })
     $(document).ready(function(){
@@ -97,4 +101,8 @@
         //     }).then(function(response) {
 
         //     })
+<<<<<<< HEAD
         // }
+=======
+        // } 
+>>>>>>> 3efdbfb07b4f1fcabcfda9ca6b2af753724755a8
