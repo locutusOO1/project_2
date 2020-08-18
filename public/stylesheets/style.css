@@ -6,6 +6,10 @@ form.login {
 	-webkit-animation: bounce 1.1s both;
 	        animation: bounce 1.1s both;
 }
+.profile{
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+}
 
  @-webkit-keyframes bounce {
   0% {
