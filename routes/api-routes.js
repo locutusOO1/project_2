@@ -168,4 +168,3 @@ module.exports = function(app) {
   });
 
 };
-© 2020 GitHub, Inc.
