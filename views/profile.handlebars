@@ -1,7 +1,18 @@
-<h1>Profile Page</h1>
+<div class="container text-center">
+    <br>
+    <br>
+    <br>
+    <br>
+<div class="tracking-in-contract">
+<h1 style="color:aliceblue;font-size:75px;"> Hello, {{{ user.userName }}} </h1>
 
-{{!-- Button to redirect to the game page--}}
-<a href="/game"><button class="to-game-page">Game On!</button></a>
-
-
-<script src="/js/game.js"></script>
+<p style="color:aliceblue;font-size:75px;">Welcome to Trivia Night !</p>
+</div>
+<button id="start-btn" type="button" class="btn btn-primary btn-lg heartbeat">Start The Game</button>
+<br>
+<br>
+<br>
+<button id="logout-btn" type="button" class="btn btn-secondary">Logout</button>
+<button id="delete-btn" type="button" class="btn btn-danger" data-id="{{user.id}}">Delete Profile</button>
+</div>
+<script src="/js/profile.js"></script>

@@ -1,70 +1,100 @@
-$( document ).ready(() => {
-    //Gloal variables set to 0 for score. Incrementers in code below with .right and .wrong click functions
-    let rightAnswer = 0;
-    let wrongAnswer = 0;
-    // let startBtn = $("#startBtn");
-    // let nextBtn = $("#nexBtn");
-    //Button with ID to start API call to display 10 random questions
-    $(".showQuestions").on("click", function() {
-        let queryURL = "https://opentdb.com/api.php?amount=1";
-        let results = [];
-        let quesDiv = $("#questions");
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then(function(response) {
-            console.log(response);
-            let results = response.results;
-            for (let i = 0; i < results.length; i++) {
-                let options = results[i].incorrect_answers;
-                options.push(results[i].correct_answer);
-                options.sort();
-            const buttons = options.map((option) => {
-                if (option === results[i].correct_answer) {
-                    return `<button type="submit" class="ansBtns right button is-link">${option}</button>`
-                } else {
-                    return `<button type="submit" class="ansBtns wrong button is-link">${option}</button>`
-                }       
-                //HTML generated dynamically         
-                }).join("");
-                let newQuestions = $(`
-                <p>Category: ${results[i].category}</p>
-                <h3>Question: ${results[i].question}</h3>
-                <div id="button-group" class="field is-grouped>
-                    <p class="control">
-                        ${buttons}
-                    </p>
-                </div>
-                `);
-                quesDiv.append(newQuestions);
-            };   
-            $(".right").on("click", function() {
-                console.log("correct");
-                rightAnswer++;
-                console.log(rightAnswer)
-                console.log(`${results[0].category}`)
-            });
-            $(".wrong").on("click", function() {
-                console.log("incorrect");
-                wrongAnswer++;
-                console.log(wrongAnswer)
-                console.log(`${results[0].category}`)
-            });              
-        });         
-    });   
-    //Function to hide button that generates questions and display the Next button to generate the following questions. Tried declaring variables, for some reason this is the only way I would get it to work. 
-    document.getElementById("startBtn").onclick = function() { 
-        document.getElementById("startBtn").style.display = "none";
-        document.getElementById("nextBtn").classList.remove("hide");  
-    };   
+//Function for game functionality
+    //AJAX calls
 
-    //Click function to clear questions div
-    document.getElementById("nextBtn").onclick = function() {
-        clearContent()
-    }
+    //For OpenTDB
+        // const apiKey = "3ea8b303cd602013a12b5951a3aed1b054818b323040af7d2231ede668458f80";
+        // var queryURL = "https://opentdb.com/api.php?amount=10";
+        // URL to request new API Key because they are deleted after 6 hours of inactivity. Just run the link in the browser
+            //https://opentdb.com/api_token.php?command=request 
 
-    //Function to clear questions div and show next question
-    function clearContent() {
-        document.getElementById("questions").empty();
-    }
-});
+
+     // creating div with questions and answers
+     $("#back-btn").on("click", function(){
+        window.location.replace("/profile");
+    })
+    $(document).ready(function(){
+        let answers = [];
+        $("#quest-btn").on("click", function(){
+            let queryURL ="https://opentdb.com/api.php?amount=10";
+            // let results =[];
+            let quesDiv = $("#myQuestions");
+            answers = [];
+            quesDiv.empty();
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function(response){
+                console.log(response);
+                let results = response.results;
+                for (let i = 0; i < results.length; i++) {
+                   let options = results[i].incorrect_answers;
+                   options.push(results[i].correct_answer);
+                   options.sort();
+                   let newQuestions = $(`
+                   <h3 class="roll">Question ${i+1}: ${results[i].question}</h3>
+                   <p>Choose answer:</p>`);
+                   quesDiv.append(newQuestions)
+                for (let j = 0; j < options.length; j++) {
+                    if (options[j] === results[i].correct_answer) { 
+                        let newAnswers = $(`<p><button class="answer ques${i} btn btn-primary btn-rounded roll" data-cat="${results[i].category}" data-right="right">${options[j]}</button></p>`);
+                        quesDiv.append(newAnswers);
+                    } else {
+                        let newAnswers = $(`<p><button class="answer ques${i} btn btn-primary btn-rounded roll" data-cat="${results[i].category}" data-right="wrong">${options[j]}</button></p>`)
+                        quesDiv.append(newAnswers);
+                    }
+                }
+                $(".ques"+i).on("click",function(event){
+                    // console.log(event.target);
+                    // console.log($(this));
+                    let found = false;
+                    let classes = $(this)[0].classList;
+                    for (let m = 0; m < answers.length; m++) {
+                        if (answers[m][0] === classes[1]) {
+                            found = true;
+                        }
+                    }
+                    if (!found) {
+                        if ($(this).attr("data-right") === "right") {
+                            $(this).addClass("btn-success");
+                        } else {
+                            $(this).addClass("btn-danger");
+                        }
+                        console.log($(this).attr("data-right"));
+                        console.log($(this).attr("data-cat"));
+                        console.log($(this)[0].classList);
+                        let classes = $(this)[0].classList;
+                        console.log(classes[1]);
+                        answers.push([classes[1],$(this).attr("data-cat"),$(this).attr("data-right")]);
+                        console.log(answers);
+                    }
+
+                    // $(classes[1]).prop("disabled",true);
+                })
+                }
+               
+                console.log(results)
+            })
+
+        })
+
+    });
+
+    // creating logic to the correct answers and updating profile of user 
+
+
+
+
+
+
+
+
+
+        // function callOpenTDb(q, id) {
+        //     $.ajax({
+        //         url: q,
+        //         method: "GET",
+        //         dataType: "jsonp"
+        //     }).then(function(response) {
+
+        //     })
+        // }

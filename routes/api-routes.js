@@ -62,6 +62,7 @@ module.exports = function(app) {
       }
     }).then(function(){
       req.logout();
+
       res.end();
     });
   });
@@ -111,14 +112,16 @@ module.exports = function(app) {
   app.get("/api/high_scores",async (req,res) => {
     const [results, metadata] = await db.sequelize.query(`
     select 
+		@rownum := @rownum + 1 as rownum,
       u.username userName, 
       sum(c.totalcorrect) totalCorrect, 
       sum(c.totalAnswered) totalAnswered, 
       (sum(c.totalcorrect)/sum(c.totalanswered))*100 overallPercentCorrect
     from users u 
     join categories c on (u.id = c.userid)
+    join (select @rownum := 0) t
     group by u.userName
-    order by overallPercentCorrect desc
+    order by overallPercentCorrect desc 
     limit 10`);
     res.json(results);
   });
@@ -137,8 +140,7 @@ module.exports = function(app) {
       from users u 
       join categories c on (u.id = c.userid)
       where u.id = ${UserId}
-      order by categoryPercentCorrect desc
-      limit 10`);
+      order by categoryPercentCorrect desc`);
       res.json(results);
     } else {
       res.json([]);
@@ -166,3 +168,4 @@ module.exports = function(app) {
   });
 
 };
+© 2020 GitHub, Inc.

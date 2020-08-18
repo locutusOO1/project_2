@@ -1,21 +1,14 @@
-<div class="container">
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false">
-      High Scores
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      {{#each highScores}}
-      <p class="dropdown-item">{{name}} - {{score}}</p>
-      {{/each}}
-    </div>
-  </div>
 
-    <h1>Game On</h1>
-
-{{!-- Make button hide after generating questions! --}}
-    <button id="startBtn" class="showQuestions">Bring it on!</button>
-    <div id="questions"></div>
-    <button id="nextBtn" class="showQuestions hide">Next Question, Please.</button>
+<br>
+<br>
+<br>
+<div id="myQuestions" class="container text-center"></div>
+<div class="text-center">
+<button id="quest-btn" type="button" class="btn btn-warning ">Get Questions!</button>
+<button id="back-btn" type="button" class="btn btn-warning ">Back To Profile </button>
 </div>
+<br>
+<br>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/game.js"></script>
