@@ -7,16 +7,34 @@
         // URL to request new API Key because they are deleted after 6 hours of inactivity. Just run the link in the browser
             //https://opentdb.com/api_token.php?command=request 
 
-
+function countdown() {
+    var timeLeft = 90;
+    var timeInterval = setInterval(function () {
+        let timer = $("#timer")
+        timeLeft--;
+        timer.text("You have " + timeLeft + " seconds remaining to answer as many questions as you can...");
+        if (timeLeft === 0) {
+            clearInterval(timeInterval);
+            timer.text("Your time is up!");
+            setInterval(function () {
+                window.location.replace("/profile");
+            },1000)
+           
+        }
+    }, 1000)
+}
      // creating div with questions and answers
     $("#back-btn").on("click", function(){
         window.location.replace("/profile");
     })
     $(document).ready(function(){
+       console.log( $("#userid").attr("data-userid"))
+
         let answers = [];
         $("#quest-btn").on("click", function(){
-            $("#quest-btn").hide();
-            $("#back-btn").hide();
+            countdown();
+            $("#quest-btn").hide()
+            $("#back-btn").hide()
             let queryURL ="https://opentdb.com/api.php?amount=10";
             // let results =[];
             let quesDiv = $("#myQuestions");

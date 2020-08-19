@@ -3,7 +3,7 @@
     <br>
     <br>
     <br>
-<div class="tracking-in-contract">
+<div class="profile tracking-in-contract">
 <h1 style="color:aliceblue;font-size:75px;"> Hello, {{{ user.userName }}} </h1>
 
 <p style="color:aliceblue;font-size:75px;">Welcome to Trivia Night !</p>
@@ -12,6 +12,13 @@
 <button id="start-btn" type="button" class="btn btn-primary btn-lg heartbeat">Start The Game</button>
 <br>
 <br>
+<div  class="jumbotron" style="background-color: transparent;">
+    {{#each scores}}
+    <p>{{cat}}</p>
+    <p>{{ques}}</p>
+    <p>{{right}}</p>
+    {{/each}}
+</div>
 <br>
 <button id="logout-btn" type="button" class="btn btn-secondary">Logout</button>
 <button id="delete-btn" type="button" class="btn btn-danger" data-id="{{user.id}}">Delete Profile</button>
