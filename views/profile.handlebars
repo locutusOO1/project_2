@@ -13,10 +13,17 @@
 <br>
 <br>
 <div  class="jumbotron" style="background-color: transparent;">
+    {{#each overall}}
+    <p>Total Correct: {{totalCorrect}}</p>
+    <p>Total Answered: {{totalAnswered}}</p>
+    <p>Correct Percentage: {{overallPercentCorrect}}</p>
+    {{/each}}
+
     {{#each scores}}
-    <p>{{cat}}</p>
-    <p>{{ques}}</p>
-    <p>{{right}}</p>
+    <p>Category Name: {{categoryName}}</p>
+    <p>Total Correct: {{totalCorrect}}</p>
+    <p>Total Answered: {{totalAnswered}}</p>
+    <p>Percentage in Category{{categoryPercentCorrect}}</p>
     {{/each}}
 </div>
 <br>

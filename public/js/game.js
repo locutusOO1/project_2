@@ -126,11 +126,7 @@ function countdown() {
                         let classes = $(this)[0].classList;
                         // console.log(classes[1]);
                         answers.push([classes[1],$(this).attr("data-cat"),$(this).attr("data-right")]);
-<<<<<<< HEAD
-                        console.log(answers);                       
-=======
                         // console.log(answers);
->>>>>>> a1051d3fd22ab0a8f39307465ebb417cb9da0a06
                     }
                     // $(classes[1]).prop("disabled",true);
                 })

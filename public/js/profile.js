@@ -11,6 +11,15 @@ $(document).ready(function(){
         window.location.replace("/logout")
     })
 
+      const id = $(this).attr("data-id")
+      $.ajax("/api/user_categories/" + id, {
+        type: "GET"
+    }).then(function(){
+        console.log("Hello")
+    //  window.location.replace("/")
+    })
+
+
     $("#delete-btn").on("click", function (req, res){
         console.log("clicked")
         const id = $(this).attr("data-id")
