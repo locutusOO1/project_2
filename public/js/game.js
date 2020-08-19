@@ -28,9 +28,13 @@ function countdown() {
         window.location.replace("/profile");
     })
     $(document).ready(function(){
+       console.log( $("#userid").attr("data-userid"))
+
         let answers = [];
-        countdown();
         $("#quest-btn").on("click", function(){
+            countdown();
+            $("#quest-btn").hide()
+            $("#back-btn").hide()
             let queryURL ="https://opentdb.com/api.php?amount=10";
             // let results =[];
             let quesDiv = $("#myQuestions");

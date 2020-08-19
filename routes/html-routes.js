@@ -45,10 +45,10 @@ module.exports = function(app) {
     const scores=[{cat: "Movies", ques: 4, right: 2},
                     {cat: "Music", ques: 5, right: 3},
                     {cat: "TV", ques: 7, right: 5}];
-                    
+
     res.render('profile', {user:req.user,scores:scores});
   });
   app.get("/game", isAuthenticated, (req, res) => {
-    res.render('game');
+    res.render('game',{user:req.user.id});
   });
 };
