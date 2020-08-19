@@ -10,7 +10,6 @@ form.login {
   color: white;
   text-shadow: 2px 2px 4px #000000;
 }
-
  @-webkit-keyframes bounce {
   0% {
     -webkit-transform: translateY(-500px);

@@ -5,9 +5,7 @@
     <br>
 <div class="profile tracking-in-contract">
 <h1 style="color:aliceblue;font-size:75px;"> Hello, {{{ user.userName }}} </h1>
-
 <p style="color:aliceblue;font-size:75px;">Welcome to Trivia Night !</p>
-{{!-- display stats --}}
 </div>
 <button id="start-btn" type="button" class="btn btn-primary btn-lg heartbeat">Start The Game</button>
 <br>
@@ -16,7 +14,7 @@
     {{#each overall}}
     <p>Total Correct: {{totalCorrect}}</p>
     <p>Total Answered: {{totalAnswered}}</p>
-    <p>Correct Percentage: {{overallPercentCorrect}}</p>
+    <p>Correct Percentage:{{overallPercentCorrect}}</p>
     {{/each}}
 
     {{#each scores}}
@@ -26,6 +24,8 @@
     <p>Percentage in Category{{categoryPercentCorrect}}</p>
     {{/each}}
 </div>
+
+
 <br>
 <button id="logout-btn" type="button" class="btn btn-secondary">Logout</button>
 <button id="delete-btn" type="button" class="btn btn-danger" data-id="{{user.id}}">Delete Profile</button>
