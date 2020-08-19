@@ -1,22 +1,14 @@
 {
   "development": {
     "username": "root",
-<<<<<<< HEAD
-    "password": "Kamilla13",
-=======
-    "password": "Claudiu_39",
->>>>>>> 7cef49148adbe503d949121ac356a2dd081e6d88
+    "password": "root",
     "database": "trivia_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-<<<<<<< HEAD
-    "password": "Kamilla13",
-=======
-    "password": "Claudiu_39",
->>>>>>> 7cef49148adbe503d949121ac356a2dd081e6d88
+    "password": "root",
     "database": "trivia_db",
     "host": "127.0.0.1",
     "dialect": "mysql"

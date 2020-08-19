@@ -40,14 +40,32 @@ module.exports = function(app) {
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
 
-  app.get("/profile", isAuthenticated, (req, res) => {
-
-    const scores=[{cat: "Movies", ques: 4, right: 2},
-                    {cat: "Music", ques: 5, right: 3},
-                    {cat: "TV", ques: 7, right: 5}];
-
-    res.render('profile', {user:req.user,scores:scores});
+  app.get("/profile", isAuthenticated, async(req, res) => {
+    const [results, metadata] = await db.sequelize.query(`
+        select 
+        u.username userName, 
+        c.totalcorrect totalCorrect, 
+        c.totalAnswered totalAnswered, 
+        c.categoryName categoryName,
+        (c.totalcorrect/c.totalanswered)*100 categoryPercentCorrect
+        from users u 
+        join categories c on (u.id = c.userid)
+        where u.id = ${req.user.id}
+        order by categoryPercentCorrect desc`);
+        const [results2, metadata2] = await db.sequelize.query(`
+        select 
+        u.username userName, 
+        sum(c.totalcorrect) totalCorrect, 
+        sum(c.totalAnswered) totalAnswered, 
+        (sum(c.totalcorrect)/sum(c.totalanswered))*100 overallPercentCorrect
+        from users u 
+        join categories c on (u.id = c.userid)
+        where u.id = ${req.user.id}
+        group by u.userName`);
+    console.log(results2)
+    res.render('profile', {user:req.user, scores:results, overall:results2});
   });
+
   app.get("/game", isAuthenticated, (req, res) => {
     res.render('game',{user:req.user.id});
   });
