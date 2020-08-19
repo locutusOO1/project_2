@@ -21,5 +21,11 @@ $(document).ready(function(){
          window.location.replace("/")
         })
     })
+    //api call to display score information
+    //$("#scores-table")
+    // $.ajax("/api/game", {
+    //     type: "GET"
+        
+    // })
 });
 

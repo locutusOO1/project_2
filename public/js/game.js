@@ -9,16 +9,14 @@
 
 
      // creating div with questions and answers
-<<<<<<< HEAD
-     $("#back-btn").on("click", function(){
-=======
     $("#back-btn").on("click", function(){
->>>>>>> 3efdbfb07b4f1fcabcfda9ca6b2af753724755a8
         window.location.replace("/profile");
     })
     $(document).ready(function(){
         let answers = [];
         $("#quest-btn").on("click", function(){
+            $("#quest-btn").hide();
+            $("#back-btn").hide();
             let queryURL ="https://opentdb.com/api.php?amount=10";
             // let results =[];
             let quesDiv = $("#myQuestions");
@@ -69,9 +67,8 @@
                         let classes = $(this)[0].classList;
                         console.log(classes[1]);
                         answers.push([classes[1],$(this).attr("data-cat"),$(this).attr("data-right")]);
-                        console.log(answers);
+                        console.log(answers);                       
                     }
-
                     // $(classes[1]).prop("disabled",true);
                 })
                 }
@@ -83,26 +80,4 @@
 
     });
 
-    // creating logic to the correct answers and updating profile of user 
-
-
-
-
-
-
-
-
-
-        // function callOpenTDb(q, id) {
-        //     $.ajax({
-        //         url: q,
-        //         method: "GET",
-        //         dataType: "jsonp"
-        //     }).then(function(response) {
-
-        //     })
-<<<<<<< HEAD
-        // }
-=======
-        // } 
->>>>>>> 3efdbfb07b4f1fcabcfda9ca6b2af753724755a8
+    // skip summarizing the answers and just make an API call for each question answered. Just send the user ID, category, 1 for the number of questions, and 0 or 1 for the number they got right
