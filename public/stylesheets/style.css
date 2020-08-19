@@ -115,17 +115,17 @@ form.login {
   }
 }
 
-#def {
+#def,.overall-stats {
   font-size: 50px;
   color: white;
   text-shadow: 2px 2px 4px #000000;
 }
 .login,.signUp,p {
-  color: aliceblue;
+  color:white;
   font-size: large;
 }
 #timer {
-  color: cornsilk;
+  color:white;
   background-color:rgb(255, 0, 0);
   font-size: x-large;
 }
