@@ -1,3 +1,7 @@
+$(document).ready(function(){
+    var answers = [];
+    var questions = [];
+    var userid = $("#userid").attr("data-userid");
 //Function for game functionality
     //AJAX calls
 
@@ -8,17 +12,52 @@
             //https://opentdb.com/api_token.php?command=request 
 
 function countdown() {
-    var timeLeft = 90;
+    var timeLeft = 5;
     var timeInterval = setInterval(function () {
         let timer = $("#timer")
         timeLeft--;
         timer.text("You have " + timeLeft + " seconds remaining to answer as many questions as you can...");
         if (timeLeft === 0) {
+            console.log("trying to get timer to show answers");
+            console.log("answers: ");
+            console.log(answers);
+            console.log("questions: ");
+            console.log(questions);
+            console.log("userid: ");
+            console.log(userid);
+            let point = 0;
+            // push scores to api
+            for (let i = 0; i < questions.length; i++) {
+                if (i >= answers.length) {
+                    point = 0;
+                } else {
+                    if (answers[i][2] === "right") {
+                        point = 1;
+                    } else {
+                        point = 0;
+                    }
+                }
+                $.ajax("/api/update", {
+                    type: "POST",
+                    data: {
+                        userId: userid,
+                        scores: [{
+                            cat: questions[i][1],
+                            ques: 1,
+                            right: point
+                        }]
+                    }
+                }).then(function(data){
+                    console.log("did the data get updated?");
+                    console.log(data);
+                //  window.location.replace("/")
+                })
+            }
             clearInterval(timeInterval);
             timer.text("Your time is up!");
-            setInterval(function () {
-                window.location.replace("/profile");
-            },1000)
+            // setInterval(function () {
+            //     window.location.replace("/profile");
+            // },1000)
            
         }
     }, 1000)
@@ -27,10 +66,10 @@ function countdown() {
     $("#back-btn").on("click", function(){
         window.location.replace("/profile");
     })
-    $(document).ready(function(){
-       console.log( $("#userid").attr("data-userid"))
 
-        let answers = [];
+    //    console.log( $("#userid").attr("data-userid"))
+
+
         $("#quest-btn").on("click", function(){
             countdown();
             $("#quest-btn").hide()
@@ -39,12 +78,13 @@ function countdown() {
             // let results =[];
             let quesDiv = $("#myQuestions");
             answers = [];
+            questions = [];
             quesDiv.empty();
             $.ajax({
                 url: queryURL,
                 method: "GET"
             }).then(function(response){
-                console.log(response);
+                // console.log(response);
                 let results = response.results;
                 for (let i = 0; i < results.length; i++) {
                    let options = results[i].incorrect_answers;
@@ -53,7 +93,8 @@ function countdown() {
                    let newQuestions = $(`
                    <h3 class="roll">Question ${i+1}: ${results[i].question}</h3>
                    <p>Choose answer:</p>`);
-                   quesDiv.append(newQuestions)
+                   quesDiv.append(newQuestions);
+                   questions.push([`ques${i}`,results[i].category]);
                 for (let j = 0; j < options.length; j++) {
                     if (options[j] === results[i].correct_answer) { 
                         let newAnswers = $(`<p><button class="answer ques${i} btn btn-primary btn-rounded roll" data-cat="${results[i].category}" data-right="right">${options[j]}</button></p>`);
@@ -79,19 +120,23 @@ function countdown() {
                         } else {
                             $(this).addClass("btn-danger");
                         }
-                        console.log($(this).attr("data-right"));
-                        console.log($(this).attr("data-cat"));
-                        console.log($(this)[0].classList);
+                        // console.log($(this).attr("data-right"));
+                        // console.log($(this).attr("data-cat"));
+                        // console.log($(this)[0].classList);
                         let classes = $(this)[0].classList;
-                        console.log(classes[1]);
+                        // console.log(classes[1]);
                         answers.push([classes[1],$(this).attr("data-cat"),$(this).attr("data-right")]);
+<<<<<<< HEAD
                         console.log(answers);                       
+=======
+                        // console.log(answers);
+>>>>>>> a1051d3fd22ab0a8f39307465ebb417cb9da0a06
                     }
                     // $(classes[1]).prop("disabled",true);
                 })
                 }
                
-                console.log(results)
+                // console.log(results);
             })
 
         })
