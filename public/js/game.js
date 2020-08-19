@@ -35,10 +35,7 @@
                    <p>Choose answer:</p>`);
                    quesDiv.append(newQuestions)
                 for (let j = 0; j < options.length; j++) {
-<<<<<<< HEAD
-                    let newAnswers = $(`<p><button class=" answerBtn btn btn-primary btn-rounded roll">${options[j]} </button></p>`)
-                    quesDiv.append(newAnswers)
-=======
+
                     if (options[j] === results[i].correct_answer) { 
                         let newAnswers = $(`<p><button class="answer ques${i} btn btn-primary btn-rounded roll" data-cat="${results[i].category}" data-right="right">${options[j]}</button></p>`);
                         quesDiv.append(newAnswers);
@@ -46,7 +43,6 @@
                         let newAnswers = $(`<p><button class="answer ques${i} btn btn-primary btn-rounded roll" data-cat="${results[i].category}" data-right="wrong">${options[j]}</button></p>`)
                         quesDiv.append(newAnswers);
                     }
->>>>>>> 3efdbfb07b4f1fcabcfda9ca6b2af753724755a8
                 }
                 $(".ques"+i).on("click",function(event){
                     // console.log(event.target);
@@ -81,15 +77,8 @@
             }) 
             
         })
-<<<<<<< HEAD
     });
    
-=======
-
-    });
-
-    // creating logic to the correct answers and updating profile of user 
->>>>>>> 3efdbfb07b4f1fcabcfda9ca6b2af753724755a8
 
     // // creating logic to the correct answers and updating profile of user
 
