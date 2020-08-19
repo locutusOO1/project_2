@@ -7,14 +7,39 @@
         // URL to request new API Key because they are deleted after 6 hours of inactivity. Just run the link in the browser
             //https://opentdb.com/api_token.php?command=request 
 
-
+function countdown() {
+    var timeLeft = 90;
+    var timeInterval = setInterval(function () {
+        let timer = $("#timer")
+        timeLeft--;
+        timer.text("You have " + timeLeft + " seconds remaining to answer as many questions as you can...");
+        if (timeLeft === 0) {
+            clearInterval(timeInterval);
+            timer.text("Your time is up!");
+            setInterval(function () {
+                window.location.replace("/profile");
+            },1000)
+           
+        }
+    }, 1000)
+}
      // creating div with questions and answers
-
+    $("#back-btn").on("click", function(){
+        window.location.replace("/profile");
+    })
     $(document).ready(function(){
+       console.log( $("#userid").attr("data-userid"))
+
+        let answers = [];
         $("#quest-btn").on("click", function(){
+            countdown();
+            $("#quest-btn").hide()
+            $("#back-btn").hide()
             let queryURL ="https://opentdb.com/api.php?amount=10";
-            let results =[];
+            // let results =[];
             let quesDiv = $("#myQuestions");
+            answers = [];
+            quesDiv.empty();
             $.ajax({
                 url: queryURL,
                 method: "GET"
@@ -26,24 +51,53 @@
                    options.push(results[i].correct_answer);
                    options.sort();
                    let newQuestions = $(`
-                   <h3>Question: ${results[i].question}</h3>
-                   <p>Choose answer: 
-                   <ul>
-                   <button class="btn btn-outline-warning btn-block">${results[i].incorrect_answers[0]} </button>
-                   <button class="btn btn-outline-warning btn-block">${results[i].incorrect_answers[1]} </button>
-                   <button class="btn btn-outline-warning btn-block">${results[i].incorrect_answers[2]} </button>
-                   <button class="btn btn-outline-warning btn-block">${results[i].incorrect_answers[3]} </button>
-                   </ul>
-                   </p>
-                   `);
-                quesDiv.append(newQuestions)
+                   <h3 class="roll">Question ${i+1}: ${results[i].question}</h3>
+                   <p>Choose answer:</p>`);
+                   quesDiv.append(newQuestions)
+                for (let j = 0; j < options.length; j++) {
+                    if (options[j] === results[i].correct_answer) { 
+                        let newAnswers = $(`<p><button class="answer ques${i} btn btn-primary btn-rounded roll" data-cat="${results[i].category}" data-right="right">${options[j]}</button></p>`);
+                        quesDiv.append(newAnswers);
+                    } else {
+                        let newAnswers = $(`<p><button class="answer ques${i} btn btn-primary btn-rounded roll" data-cat="${results[i].category}" data-right="wrong">${options[j]}</button></p>`)
+                        quesDiv.append(newAnswers);
+                    }
                 }
-                
+                $(".ques"+i).on("click",function(event){
+                    // console.log(event.target);
+                    // console.log($(this));
+                    let found = false;
+                    let classes = $(this)[0].classList;
+                    for (let m = 0; m < answers.length; m++) {
+                        if (answers[m][0] === classes[1]) {
+                            found = true;
+                        }
+                    }
+                    if (!found) {
+                        if ($(this).attr("data-right") === "right") {
+                            $(this).addClass("btn-success");
+                        } else {
+                            $(this).addClass("btn-danger");
+                        }
+                        console.log($(this).attr("data-right"));
+                        console.log($(this).attr("data-cat"));
+                        console.log($(this)[0].classList);
+                        let classes = $(this)[0].classList;
+                        console.log(classes[1]);
+                        answers.push([classes[1],$(this).attr("data-cat"),$(this).attr("data-right")]);
+                        console.log(answers);
+                    }
+
+                    // $(classes[1]).prop("disabled",true);
+                })
+                }
+               
                 console.log(results)
             })
 
         })
-    })
+
+    });
 
     // creating logic to the correct answers and updating profile of user 
 
