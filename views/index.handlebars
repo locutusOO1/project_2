@@ -1,15 +1,13 @@
-
 <div class="container">
-
+  <br>
   <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false">
       High Scores
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
       <table class="dropdown-item">
         <tr>
-          {{!-- <th>Rank - </th> --}}
           <th class="text-center">User Name |</th>
           <th class="text-center">Correct |</th>
           <th class="text-center">Answered |</th>
@@ -17,7 +15,6 @@
         </tr>
       {{#each highScores}}
       <tr>
-        {{!-- <td>{{@index}}</td> --}}
         <td class="text-center">{{userName}}</td>
         <td class="text-center">{{totalCorrect}}</td>
         <td class="text-center">{{totalAnswered}}</td>
@@ -27,20 +24,14 @@
       </table>
     </div>
   </div>
-  <br>
   <nav class="navbar navbar-default"></nav>
   <div class="navbar-header text-flicker-in-glow text-center">Trivia Night
   </div>
   <p id="def" class="bounce text-center">Definition of trivia
     : a quizzing game involving obscure facts. Are you ready?</p>
   </nav>
-    <p class="fixed-bottom text-center">Questions are generated using the <a href="https://opentdb.com/"
-        target="_blank">Open Trivia Database </a><a rel="license" target="_blank"
-        href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0"
-          src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a> which is created and maintained by <a
-        href="http://www.pixeltailgames.com/" target="_blank">PIXELTAIL GAMES LLC</a></p>
-
-  <div class="row">
+  <br>
+      <div class="row">
     <div class="col-md-3">
       <form class="login">
         <div class="form-group">
@@ -57,8 +48,14 @@
       <p class="signUp">Or sign up<a href="/signup"> HERE </a></p>
     </div>
   </div>
-</div>
-
+  <br>
+  <br>
+  <br>
+  <p class="text-center"> Questions are generated using the <a href="https://opentdb.com/"
+        target="_blank">Open Trivia Database </a><a rel="license" target="_blank"
+        href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0"
+          src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a> which is created and maintained by <a
+        href="http://www.pixeltailgames.com/" target="_blank">PIXELTAIL GAMES LLC</a></p>
 </div>
 
 <script src="/js/login.js"></script>
