@@ -17,7 +17,7 @@ $(document).ready(function () {
             let timer = $("#timer")
             timeLeft--;
             timer.text("You have " + timeLeft + " seconds remaining ...");
-            if (timeLeft === 0) {
+            if (timeLeft === 0 || answers.length >= 10) {
                 let point = 0;
     // push scores to api
                 for (let i = 0; i < questions.length; i++) {
