@@ -12,7 +12,7 @@ $(document).ready(function(){
             //https://opentdb.com/api_token.php?command=request 
 
 function countdown() {
-    var timeLeft = 5;
+    var timeLeft = 10;
     var timeInterval = setInterval(function () {
         let timer = $("#timer")
         timeLeft--;
@@ -48,9 +48,15 @@ function countdown() {
                         }]
                     }
                 }).then(function(data){
-                    console.log("did the data get updated?");
-                    console.log(data);
-                //  window.location.replace("/")
+                    //console.log("did the data get updated?");
+                    //console.log(data);
+                    const id = $(this).attr("data-id")
+                    $.ajax ("/api/user_categories/" + id, {
+                         type: "GET"
+                    }).then(function(){
+                        console.log("Hello")
+                        window.location.replace("/profile")
+                    })
                 })
             }
             clearInterval(timeInterval);
@@ -134,15 +140,9 @@ function countdown() {
                 })
                 }
                
-<<<<<<< HEAD
                 console.log(results)
             }) 
             
-=======
-                // console.log(results);
-            })
-
->>>>>>> a1051d3fd22ab0a8f39307465ebb417cb9da0a06
         })
     });
    

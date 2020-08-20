@@ -9,7 +9,8 @@ $(document).ready(function(){
     $("#logout-btn").on("click", function (req, res){
         console.log("clicked")
         window.location.replace("/logout")
-    })
+    }) 
+     
 
     $("#delete-btn").on("click", function (req, res){
         console.log("clicked")
@@ -21,5 +22,8 @@ $(document).ready(function(){
          window.location.replace("/")
         })
     })
+    
+
+
 });
 

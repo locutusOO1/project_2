@@ -12,11 +12,13 @@
 <br>
 <br>
 <div  class="jumbotron" style="background-color: transparent;">
-    {{#each scores}}
-    <p>{{cat}}</p>
-    <p>{{ques}}</p>
-    <p>{{right}}</p>
-    {{/each}}
+      {{#each categoryName}}
+      <tr>
+        <td class="text-center">{{totalCorrect}}</td>
+        <td class="text-center">{{totalAnswered}}</td>
+        <td class="text-center">{{overallPercentCorrect}}</td>
+      </tr>
+      {{/each}}
 </div>
 <br>
 <button id="logout-btn" type="button" class="btn btn-secondary">Logout</button>
