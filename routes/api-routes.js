@@ -2,7 +2,6 @@
 const db = require("../models");
 const passport = require("../config/passport");
 const Sequelize = require('sequelize');
-
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
@@ -14,7 +13,6 @@ module.exports = function(app) {
       id: req.user.id
     });
   });
-
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
@@ -30,13 +28,11 @@ module.exports = function(app) {
         res.status(401).json(err);
       });
   });
-
   // Route for logging user out
   app.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/");
   });
-
   // Route for getting some data about our user to be used client side
   app.get("/api/user_data", (req, res) => {
     if (!req.user) {
@@ -51,7 +47,6 @@ module.exports = function(app) {
       });
     }
   });
-  
   // Route for deleting user
   // app.get("/api/user_data/:id", (req, res) => {
   app.delete("/api/user_data/:id", (req, res) => {
@@ -62,11 +57,9 @@ module.exports = function(app) {
       }
     }).then(function(){
       req.logout();
-
       res.end();
     });
   });
-
   // route for handling insertion/update of new categories and their scores
   app.post("/api/update", async (req, res) => {
     let userId = req.body.userId;
@@ -107,7 +100,6 @@ module.exports = function(app) {
     }
     await res.redirect("/profile");
   });
-
   //route to get array of top 10 high scores
   app.get("/api/high_scores",async (req,res) => {
     const [results, metadata] = await db.sequelize.query(`
@@ -116,7 +108,7 @@ module.exports = function(app) {
       u.username userName, 
       sum(c.totalcorrect) totalCorrect, 
       sum(c.totalAnswered) totalAnswered, 
-      (sum(c.totalcorrect)/sum(c.totalanswered))*100 overallPercentCorrect
+      concat(format((sum(c.totalcorrect)/sum(c.totalanswered))*100,2),'%') overallPercentCorrect
     from users u 
     join categories c on (u.id = c.userid)
     join (select @rownum := 0) t
@@ -125,7 +117,6 @@ module.exports = function(app) {
     limit 10`);
     res.json(results);
   });
-
   //route to get array of specific score categories for a user
   app.get("/api/user_categories/:id",async (req,res) => {
     const UserId = parseInt(req.params.id);
@@ -136,7 +127,7 @@ module.exports = function(app) {
         c.totalcorrect totalCorrect, 
         c.totalAnswered totalAnswered, 
         c.categoryName categoryName,
-        (c.totalcorrect/c.totalanswered)*100 categoryPercentCorrect
+        concat(format((c.totalcorrect/c.totalanswered)*100,2),'%') categoryPercentCorrect
       from users u 
       join categories c on (u.id = c.userid)
       where u.id = ${UserId}
@@ -146,7 +137,6 @@ module.exports = function(app) {
       res.json([]);
     }
   });
-
   //route to get overall score for a user
   app.get("/api/user_overall/:id",async (req,res) => {
     const UserId = parseInt(req.params.id);
@@ -156,7 +146,7 @@ module.exports = function(app) {
         u.username userName, 
         sum(c.totalcorrect) totalCorrect, 
         sum(c.totalAnswered) totalAnswered, 
-        (sum(c.totalcorrect)/sum(c.totalanswered))*100 overallPercentCorrect
+        concat(format((sum(c.totalcorrect)/sum(c.totalanswered))*100,2),'%') overallPercentCorrect
       from users u 
       join categories c on (u.id = c.userid)
       where u.id = ${UserId}
@@ -166,5 +156,4 @@ module.exports = function(app) {
       res.json([]);
     }
   });
-
 };
