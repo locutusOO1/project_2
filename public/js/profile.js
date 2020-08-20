@@ -12,6 +12,15 @@ $(document).ready(function(){
     }) 
      
 
+      const id = $(this).attr("data-id")
+      $.ajax("/api/user_categories/" + id, {
+        type: "GET"
+    }).then(function(){
+        console.log("Hello")
+    //  window.location.replace("/")
+    })
+
+
     $("#delete-btn").on("click", function (req, res){
         console.log("clicked")
         const id = $(this).attr("data-id")
@@ -22,8 +31,11 @@ $(document).ready(function(){
          window.location.replace("/")
         })
     })
-    
-
-
+    //api call to display score information
+    //$("#scores-table")
+    // $.ajax("/api/game", {
+    //     type: "GET"
+        
+    // })
 });
 
