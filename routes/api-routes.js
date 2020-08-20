@@ -116,7 +116,7 @@ module.exports = function(app) {
       u.username userName, 
       sum(c.totalcorrect) totalCorrect, 
       sum(c.totalAnswered) totalAnswered, 
-      (sum(c.totalcorrect)/sum(c.totalanswered))*100 overallPercentCorrect
+      concat(format((sum(c.totalcorrect)/sum(c.totalanswered))*100,2),'%') overallPercentCorrect
     from users u 
     join categories c on (u.id = c.userid)
     join (select @rownum := 0) t
@@ -136,7 +136,7 @@ module.exports = function(app) {
         c.totalcorrect totalCorrect, 
         c.totalAnswered totalAnswered, 
         c.categoryName categoryName,
-        (c.totalcorrect/c.totalanswered)*100 categoryPercentCorrect
+        concat(format((c.totalcorrect/c.totalanswered)*100,2),'%') categoryPercentCorrect
       from users u 
       join categories c on (u.id = c.userid)
       where u.id = ${UserId}
@@ -156,7 +156,7 @@ module.exports = function(app) {
         u.username userName, 
         sum(c.totalcorrect) totalCorrect, 
         sum(c.totalAnswered) totalAnswered, 
-        (sum(c.totalcorrect)/sum(c.totalanswered))*100 overallPercentCorrect
+        concat(format((sum(c.totalcorrect)/sum(c.totalanswered))*100,2),'%') overallPercentCorrect
       from users u 
       join categories c on (u.id = c.userid)
       where u.id = ${UserId}
