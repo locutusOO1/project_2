@@ -3,6 +3,7 @@ module.exports = function(sequelize, DataTypes) {
   const Category = sequelize.define(
     "Category",
     {
+      //giving category name , total answered questions, correct answers 
       categoryName: {
         type: DataTypes.STRING,
         allowNull: false
@@ -25,12 +26,13 @@ module.exports = function(sequelize, DataTypes) {
       ]
     }
   );
-
+ //associate Category with the user 
   Category.associate = function(models) {
     Category.belongsTo(models.User, {
       foreignKey: {
         allowNull: false
       },
+      //when user is deleted, delete associated category 
       onDelete: "cascade"
     });
   };

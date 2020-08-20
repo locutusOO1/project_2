@@ -20,7 +20,7 @@ $(document).ready(function(){
     //  window.location.replace("/")
     })
 
-
+    //delete user information 
     $("#delete-btn").on("click", function (req, res){
         console.log("clicked")
         const id = $(this).attr("data-id")

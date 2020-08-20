@@ -1,3 +1,5 @@
+//requiring needed packages
+
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 

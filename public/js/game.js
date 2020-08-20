@@ -1,7 +1,10 @@
 $(document).ready(function () {
+    //creating answer and question arrays 
+    // using attribute data-userid
     var answers = [];
     var questions = [];
     var userid = $("#userid").attr("data-userid");
+
     //Function for game functionality
     //AJAX calls
     //For OpenTDB
@@ -10,7 +13,7 @@ $(document).ready(function () {
     // URL to request new API Key because they are deleted after 6 hours of inactivity. Just run the link in the browser
     //https://opentdb.com/api_token.php?command=request 
 
-    //timer for the game
+    //setting timer for the game 
     function countdown() {
         var timeLeft = 90;
         var timeInterval = setInterval(function () {
@@ -54,10 +57,12 @@ $(document).ready(function () {
             }
         }, 1000)
     }
-    // creating div with questions and answers
+    // adding event listener fot he button and replace page 
     $("#back-btn").on("click", function () {
         window.location.replace("/profile");
     })
+    //creating div gor generating questions using api 
+    //create logic and get wrong and right answers be count 
     $("#quest-btn").on("click", function () {
         countdown();
         $("#quest-btn").hide()
@@ -100,6 +105,7 @@ $(document).ready(function () {
                         }
                     }
                     if (!found) {
+                        //adding classes for the wrong and right answers buttons 
                         if ($(this).attr("data-right") === "right") {
                             $(this).addClass("btn-success");
                         } else {
