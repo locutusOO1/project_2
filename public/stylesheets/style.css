@@ -179,7 +179,7 @@ form.login {
   }
 }
 
-#def,.overall-stats {
+#def,.stats {
   font-size: 50px;
   color: white;
   text-shadow: 2px 2px 4px #000000;
@@ -193,34 +193,7 @@ form.login {
   background-color:rgb(255, 0, 0);
   font-size: x-large;
 }
-.tracking-in-expand {
-	-webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
-	        animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
-}
-@-webkit-keyframes tracking-in-expand {
-  0% {
-    letter-spacing: -0.5em;
-    opacity: 0;
-  }
-  40% {
-    opacity: 0.6;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes tracking-in-expand {
-  0% {
-    letter-spacing: -0.5em;
-    opacity: 0;
-  }
-  40% {
-    opacity: 0.6;
-  }
-  100% {
-    opacity: 1;
-  }
-}
+
 body { 
   background: url(../img/trivia2.jpeg);
   background-repeat: no-repeat;

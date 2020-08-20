@@ -12,7 +12,7 @@ $(document).ready(function () {
 
     //timer for the game
     function countdown() {
-        var timeLeft = 60;
+        var timeLeft = 90;
         var timeInterval = setInterval(function () {
             let timer = $("#timer")
             timeLeft--;
