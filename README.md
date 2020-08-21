@@ -6,19 +6,19 @@
 <img src="public/img/trivia-night.png">
 
 ## Description
-Trivia Night is an app that uses Open Trivia DB API and generates a quiz game. Before starting the game, app ask users to sign up or log in, then app populate user’s profile and allow start the game. Game quiz has ten question with different category and difficulty types. User has 90 seconds to answer the questions and get personal score.
+Trivia Night is a fun trivia game with persistent profile stat tracking and top scores.It uses Open Trivia DB API and generates a quiz game. Users are asked to sign up or log in, then the app displays the user's profile and allows for start of the game. The quiz consists of ten questions from different categories and difficulty types. User has 90 seconds to answer the questions and get personal stats.
 
 
 
 ## Table of Contents
 
-#### [Technologies Used](https://github.com/CD-prog/readme-generator#installation-1)
-#### [Installation](https://github.com/CD-prog/readme-generator#installation-1)
-#### [Usage information](https://github.com/CD-prog/readme-generator#usage-information-1)
-#### [License](https://github.com/CD-prog/readme-generator#license-1)
-#### [Contributing](https://github.com/CD-prog/readme-generator#contributing-1)
-#### [Tests](https://github.com/CD-prog/readme-generator#tests-1)
-#### [Questions](https://github.com/CD-prog/readme-generator#questions-)
+#### [Technologies Used]
+#### [Installation]
+#### [Usage information]
+#### [License]
+#### [Contributing]
+#### [Tests]
+#### [Questions]
 
 ## Technologies Used
 
