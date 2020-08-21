@@ -11,12 +11,12 @@ Trivia Night is a fun trivia game with persistent profile stat tracking and top 
 
 ## Table of Contents
 
-#### [Technologies Used]
-#### [Installation]
-#### [Usage information]
-#### [License]
-#### [Contributing]
-#### [Questions]
+#### [Technologies Used](https://github.com/nrmarsh36/project_2/blob/master/README.md#technologies-used)
+#### [Installation](https://github.com/nrmarsh36/project_2/blob/master/README.md#installation)
+#### [Usage information](https://github.com/nrmarsh36/project_2/blob/master/README.md#usage-information)
+#### [License](https://github.com/nrmarsh36/project_2/blob/master/README.md#license)
+#### [Contributing](https://github.com/nrmarsh36/project_2/blob/master/README.md#contributing)
+#### [Questions](https://github.com/nrmarsh36/project_2/blob/master/README.md#questions)
 
 ## Technologies Used
 
