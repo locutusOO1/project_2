@@ -32,7 +32,7 @@ animista.net - for CSS animations\
 bootstrap - for responsive design\
 html - layout\
 CSS - for custom style\
-open trivia DB - for question generation\
+open trivia DB - for question generation
 
 ## Installation
 Install dependencies by running "npm install" from the terminal. 
