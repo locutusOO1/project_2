@@ -3,7 +3,7 @@
 
 # Trivia Night
 
-<img src="../img/trivia-night.png">
+<img src="public/img/trivia-night.png">
 
 ## Description
 Trivia Night is an app that uses Open Trivia DB API and generates a quiz game. Before starting the game, app ask users to sign up or log in, then app populate user’s profile and allow start the game. Game quiz has ten question with different category and difficulty types. User has 90 seconds to answer the questions and get personal score.
