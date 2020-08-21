@@ -13,17 +13,17 @@ module.exports = function(app) {
     try {
     const [results, metadata] = await db.sequelize.query(`
     select 
-      u.username userName, 
-      sum(c.totalcorrect) totalCorrect, 
+      u.userName userName, 
+      sum(c.totalCorrect) totalCorrect, 
       sum(c.totalAnswered) totalAnswered, 
-      concat(format((sum(c.totalcorrect)/sum(c.totalanswered))*100,2),'%') overallPercentCorrect
-    from users u 
-    join categories c on (u.id = c.userid)
+      concat(format((sum(c.totalCorrect)/sum(c.totalAnswered))*100,2),'%') overallPercentCorrect
+    from Users u 
+    join Categories c on (u.id = c.userId)
     group by u.userName
     order by overallPercentCorrect desc 
     limit 10`);
     res.render('index', {highScores: results});
-    }catch(err){res.render("index",{highscores:[]})};
+    }catch(err){res.render("index",{highScores:[]})};
   });
   app.get("/signup", (req, res) => {
     // If the user already has an account send them to the members page
@@ -38,23 +38,23 @@ module.exports = function(app) {
     try {
     const [results, metadata] = await db.sequelize.query(`
         select 
-        u.username userName, 
-        c.totalcorrect totalCorrect, 
+        u.userName userName, 
+        c.totalCorrect totalCorrect, 
         c.totalAnswered totalAnswered, 
         c.categoryName categoryName,
-        concat(format((c.totalcorrect/c.totalanswered)*100,2),'%') categoryPercentCorrect
-        from users u 
-        join categories c on (u.id = c.userid)
+        concat(format((c.totalCorrect/c.totalAnswered)*100,2),'%') categoryPercentCorrect
+        from Users u 
+        join Categories c on (u.id = c.userId)
         where u.id = ${req.user.id}
         order by categoryPercentCorrect desc`);
         const [results2, metadata2] = await db.sequelize.query(`
         select 
-        u.username userName, 
-        sum(c.totalcorrect) totalCorrect, 
+        u.userName userName, 
+        sum(c.totalCorrect) totalCorrect, 
         sum(c.totalAnswered) totalAnswered, 
-        concat(format((sum(c.totalcorrect)/sum(c.totalanswered))*100,2),'%') overallPercentCorrect
-        from users u 
-        join categories c on (u.id = c.userid)
+        concat(format((sum(c.totalCorrect)/sum(c.totalAnswered))*100,2),'%') overallPercentCorrect
+        from Users u 
+        join Categories c on (u.id = c.userId)
         where u.id = ${req.user.id}
         group by u.userName`);
         res.render('profile', {user:req.user, scores:results, overall:results2});

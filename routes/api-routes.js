@@ -108,12 +108,12 @@ module.exports = function(app) {
   app.get("/api/high_scores",async (req,res) => {
     const [results, metadata] = await db.sequelize.query(`
     select 
-      u.username userName, 
-      sum(c.totalcorrect) totalCorrect, 
+      u.userName userName, 
+      sum(c.totalCorrect) totalCorrect, 
       sum(c.totalAnswered) totalAnswered, 
-      concat(format((sum(c.totalcorrect)/sum(c.totalanswered))*100,2),'%') overallPercentCorrect
-    from users u 
-    join categories c on (u.id = c.userid)
+      concat(format((sum(c.totalCorrect)/sum(c.totalAnswered))*100,2),'%') overallPercentCorrect
+    from Users u 
+    join Categories c on (u.id = c.userId)
     group by u.userName
     order by overallPercentCorrect desc 
     limit 10`);
@@ -126,13 +126,13 @@ module.exports = function(app) {
     if (!isNaN(UserId)) {
       const [results, metadata] = await db.sequelize.query(`
       select 
-        u.username userName, 
-        c.totalcorrect totalCorrect, 
+        u.userName userName, 
+        c.totalCorrect totalCorrect, 
         c.totalAnswered totalAnswered, 
         c.categoryName categoryName,
-        concat(format((c.totalcorrect/c.totalanswered)*100,2),'%') categoryPercentCorrect
-      from users u 
-      join categories c on (u.id = c.userid)
+        concat(format((c.totalCorrect/c.totalAnswered)*100,2),'%') categoryPercentCorrect
+      from Users u 
+      join Categories c on (u.id = c.userId)
       where u.id = ${UserId}
       order by categoryPercentCorrect desc`);
       res.json(results);
@@ -146,12 +146,12 @@ module.exports = function(app) {
     if (!isNaN(UserId)) {
       const [results, metadata] = await db.sequelize.query(`
       select 
-        u.username userName, 
-        sum(c.totalcorrect) totalCorrect, 
+        u.userName userName, 
+        sum(c.totalCorrect) totalCorrect, 
         sum(c.totalAnswered) totalAnswered, 
-        concat(format((sum(c.totalcorrect)/sum(c.totalanswered))*100,2),'%') overallPercentCorrect
-      from users u 
-      join categories c on (u.id = c.userid)
+        concat(format((sum(c.totalCorrect)/sum(c.totalAnswered))*100,2),'%') overallPercentCorrect
+      from Users u 
+      join Categories c on (u.id = c.userId)
       where u.id = ${UserId}
       group by u.userName`);
       res.json(results);
