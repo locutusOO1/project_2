@@ -9,7 +9,8 @@ module.exports = function(app) {
     // If the user already has an account send them to the members page
     if (req.user) {
       res.redirect("/game");
-    }
+    } 
+    try {
     const [results, metadata] = await db.sequelize.query(`
     select 
       u.username userName, 
@@ -22,6 +23,7 @@ module.exports = function(app) {
     order by overallPercentCorrect desc 
     limit 10`);
     res.render('index', {highScores: results});
+    }catch(err){res.render("index",{highscores:[]})};
   });
   app.get("/signup", (req, res) => {
     // If the user already has an account send them to the members page
