@@ -81,6 +81,7 @@ module.exports = function(app) {
         totalAnswered: scores[i].ques,
       })
         .then(() => {
+          res.end();
         })
         .catch(err => {
           // if category already exists for user, then update it instead of creating it
@@ -94,26 +95,25 @@ module.exports = function(app) {
                 categoryName: scores[i].cat
               }
             }).then(() => {
+              res.end();
             }).catch(err2 => {
               console.log(err2);
             });
           }
         });
     }
-    await res.redirect("/profile");
+    res.redirect("/profile");
   });
   //route to get array of top 10 high scores
   app.get("/api/high_scores",async (req,res) => {
     const [results, metadata] = await db.sequelize.query(`
     select 
-		@rownum := @rownum + 1 as rownum,
       u.username userName, 
       sum(c.totalcorrect) totalCorrect, 
       sum(c.totalAnswered) totalAnswered, 
       concat(format((sum(c.totalcorrect)/sum(c.totalanswered))*100,2),'%') overallPercentCorrect
     from users u 
     join categories c on (u.id = c.userid)
-    join (select @rownum := 0) t
     group by u.userName
     order by overallPercentCorrect desc 
     limit 10`);
@@ -122,9 +122,6 @@ module.exports = function(app) {
   //route to get array of specific score categories for a user
   app.get("/api/user_categories/:id",async (req,res) => {
     const UserId = parseInt(req.params.id);
-
-    
-
 
     if (!isNaN(UserId)) {
       const [results, metadata] = await db.sequelize.query(`
