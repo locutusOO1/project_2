@@ -28,13 +28,14 @@ module.exports = function(app) {
   app.get("/signup", (req, res) => {
     // If the user already has an account send them to the members page
     if (req.user) {
-      res.redirect("/game");
+      res.redirect("/index");
     }
     res.render('signup');
   });
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get("/profile", isAuthenticated, async(req, res) => {
+    try {
     const [results, metadata] = await db.sequelize.query(`
         select 
         u.username userName, 
@@ -56,6 +57,7 @@ module.exports = function(app) {
         join categories c on (u.id = c.userid)
         where u.id = ${req.user.id}
         group by u.userName`);
+      }catch(err){res.render("profile",{user:req.user, scores:[], overall:[]})};
     console.log(results2)
     res.render('profile', {user:req.user, scores:results, overall:results2});
   });
