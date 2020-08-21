@@ -31,7 +31,7 @@ module.exports = function(app) {
   // Route for logging user out
   app.get("/logout", (req, res) => {
     req.logout();
-    res.redirect("/");
+    res.redirect("/")
   });
   // Route for getting some data about our user to be used client side
   app.get("/api/user_data", (req, res) => {
@@ -44,7 +44,7 @@ module.exports = function(app) {
       res.json({
         userName: req.user.userName,
         id: req.user.id
-      });
+      })
     }
   });
   // Route for deleting user
@@ -58,6 +58,8 @@ module.exports = function(app) {
     }).then(function(){
       req.logout();
       res.end();
+    }).catch(err => {
+      res.status(401).json(err);
     });
   });
   // route for handling insertion/update of new categories and their scores
@@ -79,6 +81,7 @@ module.exports = function(app) {
         totalAnswered: scores[i].ques,
       })
         .then(() => {
+          res.end();
         })
         .catch(err => {
           // if category already exists for user, then update it instead of creating it
@@ -92,49 +95,49 @@ module.exports = function(app) {
                 categoryName: scores[i].cat
               }
             }).then(() => {
+              res.end();
             }).catch(err2 => {
               console.log(err2);
             });
           }
         });
     }
-    await res.redirect("/profile");
+    res.redirect("/profile");
   });
   //route to get array of top 10 high scores
   app.get("/api/high_scores",async (req,res) => {
     const [results, metadata] = await db.sequelize.query(`
     select 
-		@rownum := @rownum + 1 as rownum,
-      u.username userName, 
-      sum(c.totalcorrect) totalCorrect, 
+      u.userName userName, 
+      sum(c.totalCorrect) totalCorrect, 
       sum(c.totalAnswered) totalAnswered, 
-      concat(format((sum(c.totalcorrect)/sum(c.totalanswered))*100,2),'%') overallPercentCorrect
-    from users u 
-    join categories c on (u.id = c.userid)
-    join (select @rownum := 0) t
+      concat(format((sum(c.totalCorrect)/sum(c.totalAnswered))*100,2),'%') overallPercentCorrect
+    from Users u 
+    join Categories c on (u.id = c.userId)
     group by u.userName
     order by overallPercentCorrect desc 
     limit 10`);
-    res.json(results);
+    res.json(results)
   });
   //route to get array of specific score categories for a user
   app.get("/api/user_categories/:id",async (req,res) => {
     const UserId = parseInt(req.params.id);
+
     if (!isNaN(UserId)) {
       const [results, metadata] = await db.sequelize.query(`
       select 
-        u.username userName, 
-        c.totalcorrect totalCorrect, 
+        u.userName userName, 
+        c.totalCorrect totalCorrect, 
         c.totalAnswered totalAnswered, 
         c.categoryName categoryName,
-        concat(format((c.totalcorrect/c.totalanswered)*100,2),'%') categoryPercentCorrect
-      from users u 
-      join categories c on (u.id = c.userid)
+        concat(format((c.totalCorrect/c.totalAnswered)*100,2),'%') categoryPercentCorrect
+      from Users u 
+      join Categories c on (u.id = c.userId)
       where u.id = ${UserId}
       order by categoryPercentCorrect desc`);
       res.json(results);
     } else {
-      res.json([]);
+      res.json([])
     }
   });
   //route to get overall score for a user
@@ -143,17 +146,17 @@ module.exports = function(app) {
     if (!isNaN(UserId)) {
       const [results, metadata] = await db.sequelize.query(`
       select 
-        u.username userName, 
-        sum(c.totalcorrect) totalCorrect, 
+        u.userName userName, 
+        sum(c.totalCorrect) totalCorrect, 
         sum(c.totalAnswered) totalAnswered, 
-        concat(format((sum(c.totalcorrect)/sum(c.totalanswered))*100,2),'%') overallPercentCorrect
-      from users u 
-      join categories c on (u.id = c.userid)
+        concat(format((sum(c.totalCorrect)/sum(c.totalAnswered))*100,2),'%') overallPercentCorrect
+      from Users u 
+      join Categories c on (u.id = c.userId)
       where u.id = ${UserId}
       group by u.userName`);
       res.json(results);
     } else {
-      res.json([]);
+      res.json([])
     }
   });
 };
