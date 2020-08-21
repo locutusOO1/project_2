@@ -28,7 +28,7 @@ module.exports = function(app) {
   app.get("/signup", (req, res) => {
     // If the user already has an account send them to the members page
     if (req.user) {
-      res.redirect("/index");
+      res.redirect("/");
     }
     res.render('signup');
   });
@@ -57,9 +57,9 @@ module.exports = function(app) {
         join categories c on (u.id = c.userid)
         where u.id = ${req.user.id}
         group by u.userName`);
-      }catch(err){res.render("profile",{user:req.user, scores:[], overall:[]})};
-    console.log(results2)
-    res.render('profile', {user:req.user, scores:results, overall:results2});
+        res.render('profile', {user:req.user, scores:results, overall:results2});
+        console.log(results2)
+      }catch(err){res.render("profile",{user:req.user, scores:[], overall:[]})}
   });
   app.get("/game", isAuthenticated, (req, res) => {
     res.render('game',{user:req.user.id});
