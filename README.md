@@ -39,6 +39,7 @@ Install dependencies by running "npm install" from the terminal.
 
 ## Usage information
 Access application on Heroku : https://morning-ravine-45125.herokuapp.com/
+
 Run application locally on localsost:8080 by running node server or npm start in your text editor
 
 ## License
