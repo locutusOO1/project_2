@@ -11,6 +11,8 @@ module.exports = function(app) {
     res.json({
       userName: req.user.userName,
       id: req.user.id
+    }).catch(err => {
+      res.status(401).json(err);
     });
   });
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
@@ -31,7 +33,9 @@ module.exports = function(app) {
   // Route for logging user out
   app.get("/logout", (req, res) => {
     req.logout();
-    res.redirect("/");
+    res.redirect("/") .catch(err => {
+      res.status(401).json(err);
+    });
   });
   // Route for getting some data about our user to be used client side
   app.get("/api/user_data", (req, res) => {
@@ -44,6 +48,8 @@ module.exports = function(app) {
       res.json({
         userName: req.user.userName,
         id: req.user.id
+      }) .catch(err => {
+        res.status(401).json(err);
       });
     }
   });
@@ -58,6 +64,8 @@ module.exports = function(app) {
     }).then(function(){
       req.logout();
       res.end();
+    }) .catch(err => {
+      res.status(401).json(err);
     });
   });
   // route for handling insertion/update of new categories and their scores
@@ -115,7 +123,9 @@ module.exports = function(app) {
     group by u.userName
     order by overallPercentCorrect desc 
     limit 10`);
-    res.json(results);
+    res.json(results) .catch(err => {
+      res.status(401).json(err);
+    });
   });
   //route to get array of specific score categories for a user
   app.get("/api/user_categories/:id",async (req,res) => {
@@ -134,7 +144,9 @@ module.exports = function(app) {
       order by categoryPercentCorrect desc`);
       res.json(results);
     } else {
-      res.json([]);
+      res.json([]) .catch(err => {
+        res.status(401).json(err);
+      });
     }
   });
   //route to get overall score for a user
@@ -153,7 +165,9 @@ module.exports = function(app) {
       group by u.userName`);
       res.json(results);
     } else {
-      res.json([]);
+      res.json([]) .catch(err => {
+        res.status(401).json(err);
+      });
     }
   });
 };
