@@ -20,27 +20,27 @@ Trivia Night is a fun trivia game with persistent profile stat tracking and top 
 
 ## Technologies Used
 
-Node.js - for js runtime\
-Express - for server configuration\
-Sequelize ORM - for DB object relational mapping\
-MySQL - for housing the data\
-Handlebars.js - for html templating\
-jQuery/js - for dom manipulation\
-Passport.js/Bcrypt - to encrypt passwords\
-ESLint - to help keep code formatted correctly\
-animista.net - for CSS animations\
-bootstrap - for responsive design\
-html - layout\
-CSS - for custom style\
-open trivia DB - for question generation
+* Node.js - for JS runtime
+* Express - for server configuration
+* Sequelize ORM - for DB object relational mapping
+* MySQL - for housing the data
+* Handlebars.js - for HTML templating
+* jQuery/JS - for DOM manipulation
+* Passport.js/Bcrypt - to encrypt passwords
+* ESLint - to help keep code formatted correctly
+* animista.net - for CSS animations
+* bootstrap - for responsive design
+* HTML - layout
+* CSS - for custom style
+* Open Trivia DB - for question generation
 
 ## Installation
 Install dependencies by running "npm install" from the terminal. 
 
 ## Usage information
-Access application on Heroku : https://morning-ravine-45125.herokuapp.com/
-
-Run application locally on localsost:8080 by running node server or npm start in your text editor
+* Access the repo on GitHub: https://github.com/nrmarsh36/project_2
+* Access application on Heroku : https://morning-ravine-45125.herokuapp.com/
+* Run application locally on localsost:8080 by running node server or npm start in your text editor
 
 ## License
 MIT
